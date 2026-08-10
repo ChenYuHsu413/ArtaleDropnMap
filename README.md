@@ -1,5 +1,7 @@
 # Artale 練等打寶決策工具
 
+🔗 **Demo：<https://chenyuhsu413.github.io/ArtaleDropnMap/>**
+
 一個**決策工具**。核心兩件事：
 
 1. **瀏覽 / 找東西** — 首頁即怪物圖卡牆，打字即時篩選（fuzzy + 異體字 + 別名），點卡看掉落與刷圖。
