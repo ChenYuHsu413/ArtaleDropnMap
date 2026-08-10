@@ -1,0 +1,1181 @@
+[
+  {
+    "level_range": [
+      30,
+      40
+    ],
+    "map_name": "維多利亞：東方岩石山Ⅵ",
+    "display_name": "東方岩石山6",
+    "type": "map",
+    "mobs": [
+      "火肥肥",
+      "黑斧木妖"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "怪密集",
+      "可引怪群清"
+    ],
+    "drops_highlight": [
+      "太極扇",
+      "月飛鏢",
+      "木製陀螺",
+      "弩弓(38等)",
+      "水晶短杖(38等)",
+      "玻璃鞋(每日任務)",
+      "枯木樹液(任務/可賣)"
+    ],
+    "notes": "火肥肥密集且混黑斧木妖，有群攻技能後可引怪一次清。玻璃鞋每日可解一次（8小時重置）。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      35,
+      40
+    ],
+    "map_name": "黃金海岸：紅螃蟹海灘II",
+    "display_name": "紅螃蟹海灘2",
+    "type": "map",
+    "mobs": [
+      "紅螃蟹"
+    ],
+    "element": "弱雷",
+    "recommended_jobs": [
+      "冰雷"
+    ],
+    "party": "solo",
+    "tags": [
+      "屬性剋制",
+      "高價卷軸"
+    ],
+    "drops_highlight": [
+      "短劍攻擊卷軸60%",
+      "上衣幸運卷軸100%",
+      "頭盔智力卷軸100%",
+      "太極扇"
+    ],
+    "notes": "螃蟹弱雷，冰雷首選。其他職業也可，但地形稍不友善。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      35,
+      40
+    ],
+    "map_name": "墮落城市地鐵：地鐵二號線[01]",
+    "display_name": "地鐵（一、二號線）",
+    "type": "map",
+    "mobs": [
+      "小幽靈"
+    ],
+    "alt_maps": [
+      "墮落城市地鐵：地鐵一號線[地區02]",
+      "墮落城市地鐵：地鐵一號線[地區03]",
+      "墮落城市地鐵：地鐵二號線[地區02]"
+    ],
+    "element": "弱火",
+    "recommended_jobs": [
+      "火毒",
+      "僧侶"
+    ],
+    "party": "solo",
+    "tags": [
+      "屬性剋制",
+      "可治癒",
+      "高價卷軸"
+    ],
+    "drops_highlight": [
+      "頭盔敏捷卷軸100%"
+    ],
+    "notes": "頭盔敏捷卷100%需求量大。僧侶可群體治癒補怪練功，建議38等治癒點高後再來。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      35,
+      50
+    ],
+    "map_name": null,
+    "display_name": "玩具城101組隊任務",
+    "type": "party_quest",
+    "mobs": [],
+    "element": null,
+    "recommended_jobs": [
+      "盜賊",
+      "法師"
+    ],
+    "party": "party",
+    "tags": [
+      "組隊任務"
+    ],
+    "drops_highlight": [
+      "有裂痕的眼鏡(15場獎勵)"
+    ],
+    "notes": "玩具城左邊高塔最上方。找隊較花時間，35等以盜賊與法師需求高，隊伍建議至少一位高傷打手。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      40,
+      50
+    ],
+    "map_name": "隱密之地：猴子沼澤地Ⅲ",
+    "display_name": "猴子沼澤地3",
+    "type": "map",
+    "mobs": [
+      "天使猴"
+    ],
+    "element": null,
+    "recommended_jobs": [
+      "僧侶"
+    ],
+    "party": "solo",
+    "tags": [
+      "怪密集",
+      "多平台",
+      "商店裝備收入"
+    ],
+    "drops_highlight": [
+      "詛咒娃娃(大量需求)",
+      "精靈長杖(45等)",
+      "炎弩(50等)"
+    ],
+    "notes": "平台小怪多非常好練，僧侶特別推薦（43等前有MISS機率）。掉落裝備丟商店收入可觀。注意：從奇幻村經墮落城市過去，路上有機率遇野王。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      40,
+      50
+    ],
+    "map_name": "玩具城：時間之路<1>",
+    "display_name": "玩具城鐘塔 - 時間之路<1>",
+    "type": "map",
+    "mobs": [
+      "進化妖魔"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "可治癒",
+      "偏打寶",
+      "高價卷軸"
+    ],
+    "drops_highlight": [
+      "手套攻擊卷軸60%",
+      "鑽石護盾"
+    ],
+    "notes": "比起練功更偏打寶，適合練功中又想賺錢的玩家。僧侶可補怪但效率普通，43等前有MISS機率。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      45,
+      50
+    ],
+    "map_name": "迷霧森林：龍族狩獵場",
+    "display_name": "龍族狩獵場",
+    "type": "map",
+    "mobs": [
+      "青龍"
+    ],
+    "element": null,
+    "recommended_jobs": [
+      "妙手刀賊"
+    ],
+    "party": "solo",
+    "tags": [
+      "怪密集",
+      "多平台"
+    ],
+    "drops_highlight": [
+      "金飛鏢(雪花鏢)",
+      "白龍之杖"
+    ],
+    "notes": "四層平台怪多密集。掉鏢賊用的雪花鏢。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      45,
+      50
+    ],
+    "map_name": "黃金海岸：青螃蟹海灘II",
+    "display_name": "青螃蟹海灘2",
+    "type": "map",
+    "mobs": [
+      "青螃蟹",
+      "紅螃蟹"
+    ],
+    "element": "弱雷",
+    "recommended_jobs": [
+      "冰雷"
+    ],
+    "party": "solo",
+    "tags": [
+      "屬性剋制"
+    ],
+    "drops_highlight": [
+      "黃色雨傘(全智法)",
+      "上衣幸運卷軸10%"
+    ],
+    "notes": "弱雷，非常推薦冰雷。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      50,
+      70
+    ],
+    "map_name": "迷霧森林：魔龍領土",
+    "display_name": "魔龍領土",
+    "type": "map",
+    "mobs": [
+      "魔龍"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "首選",
+      "怪密集",
+      "多平台"
+    ],
+    "drops_highlight": [
+      "耳環幸運卷軸10%",
+      "短杖魔力卷軸60%",
+      "土飛鏢(梅之鏢)"
+    ],
+    "notes": "三平台各層大量密集魔龍，此等級區間練功首選。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      50,
+      70
+    ],
+    "map_name": "地城：巨人之林",
+    "display_name": "迷霧森林 - 巨人之森",
+    "type": "map",
+    "mobs": [
+      "混種石巨人",
+      "黑曜石巨人"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "練功兼打寶"
+    ],
+    "drops_highlight": [
+      "手套攻擊卷軸60%",
+      "上衣幸運卷軸60%(黑曜石巨人)",
+      "土飛鏢(梅之鏢)"
+    ],
+    "notes": "效率略遜魔龍，但掉裝機率不低，兼具練功與刷寶。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      50,
+      70
+    ],
+    "map_name": "艾納斯島：結冰的平原Ⅱ",
+    "display_name": "結冰的平原2",
+    "type": "map",
+    "mobs": [
+      "白狼",
+      "野狼"
+    ],
+    "element": "弱火",
+    "recommended_jobs": [
+      "火毒"
+    ],
+    "party": "solo",
+    "tags": [
+      "屬性剋制",
+      "怪密集",
+      "地圖偏大"
+    ],
+    "drops_highlight": [
+      "披風敏捷卷軸60%",
+      "頭盔智力卷軸100%",
+      "金飛鏢(野狼)",
+      "土飛鏢(白狼)"
+    ],
+    "notes": "怪多密集但地圖有點大。弱火，火毒適合。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      50,
+      70
+    ],
+    "map_name": "維多利亞：石人寺院Ⅱ",
+    "display_name": "石巨人寺廟2",
+    "type": "map",
+    "mobs": [
+      "石巨人",
+      "蝴蝶精",
+      "藍菇菇",
+      "猴子"
+    ],
+    "element": null,
+    "recommended_jobs": [
+      "獵人"
+    ],
+    "party": "solo",
+    "tags": [
+      "上下平台近"
+    ],
+    "drops_highlight": [
+      "弩攻擊卷軸60%",
+      "弓攻擊卷軸60%",
+      "金飛鏢(雪花鏢)"
+    ],
+    "notes": "主要目標為石巨人，圖內混有蝴蝶精、藍菇菇與猴子。上下平台接近，極度推薦獵人在這邊炸。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      51,
+      70
+    ],
+    "map_name": "內部齒輪裝置：女神室",
+    "display_name": "女神組隊任務",
+    "type": "party_quest",
+    "mobs": [],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "party",
+    "tags": [
+      "組隊任務"
+    ],
+    "drops_highlight": [],
+    "notes": "分打王團與經驗團，練功以經驗團為主。機制偏多，建議先熟悉流程。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      55,
+      70
+    ],
+    "map_name": "維多利亞：第1軍營",
+    "display_name": "軍1",
+    "type": "map",
+    "mobs": [
+      "骷髏士兵",
+      "骷髏士官"
+    ],
+    "element": null,
+    "recommended_jobs": [
+      "僧侶"
+    ],
+    "party": "solo",
+    "tags": [
+      "可治癒",
+      "高價卷軸"
+    ],
+    "drops_highlight": [
+      "長杖魔力卷軸60%",
+      "短杖魔力卷軸60%",
+      "拳套攻擊卷軸60%",
+      "手套攻擊卷軸60%",
+      "長杖魔力卷軸10%",
+      "上衣力量卷軸100%",
+      "上衣幸運卷軸100%",
+      "強力子彈"
+    ],
+    "notes": "高價卷軸種類多，可治癒。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      70,
+      90
+    ],
+    "map_name": "玩具城：遺忘的時間之路<3>",
+    "display_name": "遺忘的時間之路<3>（DT團）",
+    "type": "map",
+    "mobs": [
+      "怨靈發條熊"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "party",
+    "tags": [
+      "組隊團練",
+      "燒水",
+      "70~80升等最快"
+    ],
+    "drops_highlight": [],
+    "notes": "怨靈發條熊85等。吸經驗條件：玩家與怪物相差5等內，或隊員間相差5等內有人擊殺即可。70~80區間全隊等級差需在5等內（例：最低73則最高78）；80等後與怪差5等內達標、不受隊伍等差限制。註：101更新後101為最高效率練功點，DT團已大量減少。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      90,
+      120
+    ],
+    "map_name": "玩具城：遺忘的時間之路<4>",
+    "display_name": "遺忘的時間之路<4>（PW團）",
+    "type": "map",
+    "mobs": [
+      "幽魂女巫"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "party",
+    "tags": [
+      "組隊團練"
+    ],
+    "drops_highlight": [],
+    "notes": "幽魂女巫95等，玩家90等即與怪差5等內、可穩定吸取團隊經驗。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      70,
+      80
+    ],
+    "map_name": "迷霧森林：魔龍領土",
+    "display_name": "魔龍領土（70後單刷）",
+    "type": "map",
+    "mobs": [
+      "魔龍"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "單人最高效率",
+      "賺水錢"
+    ],
+    "drops_highlight": [],
+    "notes": "此區間怪物血量與經驗不成正比（魔龍62等HP5500經驗240；黑龍68等HP13000經驗僅265），單刷效率魔龍仍最高，並可賺大量水錢。建議循環：單刷賺錢→團刷燒水。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      80,
+      90
+    ],
+    "map_name": "艾納斯島：危險的絕壁",
+    "display_name": "險峻懸崖",
+    "type": "map",
+    "mobs": [
+      "黑吉拉戰車",
+      "黑企鵝王",
+      "黑吉拉"
+    ],
+    "element": null,
+    "recommended_jobs": [
+      "祭司"
+    ],
+    "party": "solo",
+    "tags": [
+      "賺錢聖地",
+      "高價卷軸"
+    ],
+    "drops_highlight": [
+      "披風幸運卷軸60%",
+      "手套智力卷軸100%",
+      "耳環敏捷卷軸10%(高價)"
+    ],
+    "notes": "三轉主攻技點高後轉戰此處。黑吉拉戰車本身掉寶，解體後的黑企鵝王與黑吉拉會再各掉一次金錢。祭司聖光點高也適合在此練。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      80,
+      90
+    ],
+    "map_name": "玩具城：彎曲的時間",
+    "display_name": "彎曲的時間（扭曲的時間之路<3>隱藏圖）",
+    "type": "map",
+    "mobs": [
+      "多立百烈"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "隱藏地圖",
+      "地形好跑"
+    ],
+    "drops_highlight": [
+      "雷鏢"
+    ],
+    "notes": "最下層能傳送回上層、跑圖順。收益不如黑吉拉戰車，次推。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      85,
+      120
+    ],
+    "map_name": "冰原雪域：試煉洞窟Ⅲ",
+    "display_name": "試煉洞穴3",
+    "type": "map",
+    "mobs": [
+      "煉獄獵犬",
+      "地獄獵犬",
+      "小獵犬",
+      "火精靈"
+    ],
+    "element": null,
+    "recommended_jobs": [
+      "冰雷"
+    ],
+    "party": "solo",
+    "tags": [
+      "冰雷聖地",
+      "燒水"
+    ],
+    "drops_highlight": [],
+    "notes": "冰雷首選，78等即可來練但較燒水。劍士命中需140才能完全不MISS。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      85,
+      120
+    ],
+    "map_name": "玩具城：扭曲的時間之路<4>",
+    "display_name": "扭曲的時間之路<4>",
+    "type": "map",
+    "mobs": [
+      "維京"
+    ],
+    "element": null,
+    "recommended_jobs": [
+      "獵人",
+      "弩手"
+    ],
+    "party": "solo",
+    "tags": [
+      "隔平台安全輸出",
+      "省水"
+    ],
+    "drops_highlight": [
+      "日鏢"
+    ],
+    "notes": "箭雨/昇龍可隔上下平台打維京，省水好練。特別推薦弓/弩手。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      80,
+      100
+    ],
+    "map_name": "水世界：深海峽谷 1",
+    "display_name": "魚屋（深海區）",
+    "type": "map",
+    "mobs": [
+      "刺鰭魚之屋",
+      "刺鰭魚",
+      "骨骸魚"
+    ],
+    "alt_maps": [
+      "水世界：深海峽谷 2"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "either",
+    "tags": [
+      "練等兼賺錢"
+    ],
+    "drops_highlight": [],
+    "notes": "原文撰寫時水世界未開放、僅簡述為「80等後練等兼賺錢首選」，現已開放，細節待補。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      1,
+      10
+    ],
+    "map_name": null,
+    "display_name": "楓之島任務",
+    "type": "quest",
+    "mobs": [],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "任務經驗兩倍"
+    ],
+    "drops_highlight": [],
+    "notes": "照任務流程解到10等。新手技能必點「嫩寶投擲術」（固傷40，前期無楓幣買裝時的救命技），次推疾風之步。法師建議10等再轉職（轉職後教官不給水錢，超過的等級會補回技能點；最晚10等一定要轉，10等開始點魔力擴展）。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=288",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      10,
+      20
+    ],
+    "map_name": "隱密之地：空屋",
+    "display_name": "空屋（弓箭手村樹屋）",
+    "type": "map",
+    "mobs": [
+      "菇菇寶貝"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "新手賺錢",
+      "隱藏地圖"
+    ],
+    "drops_highlight": [
+      "鞋子跳躍卷軸10%"
+    ],
+    "notes": "30等前無法交易、初期買不了職業裝，用嫩寶投擲術穩定兩下一隻菇菇寶貝，練等兼賺錢。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=288",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      10,
+      20
+    ],
+    "map_name": "隱密之地：菇菇山丘",
+    "display_name": "菇菇山丘（次選）",
+    "type": "map",
+    "mobs": [
+      "菇菇寶貝",
+      "綠菇菇",
+      "菇菇仔"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "次選"
+    ],
+    "drops_highlight": [],
+    "notes": "樹屋人太多時的第二選擇。底層菇菇寶貝多，上層綠菇菇較棘手，另混有少量菇菇仔。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=288",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      20,
+      25
+    ],
+    "map_name": "墮落城市地鐵：地鐵一號線[地區01]",
+    "display_name": "墮落城市地鐵（藍水靈）",
+    "type": "map",
+    "mobs": [
+      "藍水靈"
+    ],
+    "element": null,
+    "recommended_jobs": [
+      "劍士",
+      "槍騎兵"
+    ],
+    "party": "solo",
+    "tags": [
+      "武器自給"
+    ],
+    "drops_highlight": [
+      "海神叉",
+      "披風智力卷軸100%",
+      "短劍攻擊卷軸10%"
+    ],
+    "notes": "海神叉加命中與移速，劍士推薦23等再來取一把，槍騎兵可用到50等。藍水靈最低命中37，劍士敏捷至少46才不MISS。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=288",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      20,
+      25
+    ],
+    "map_name": "維多利亞：藍菇菇樹林",
+    "display_name": "藍菇菇森林",
+    "type": "map",
+    "mobs": [
+      "藍菇菇"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "怪密集",
+      "純練等"
+    ],
+    "drops_highlight": [
+      "雙手劍攻擊卷軸10%",
+      "法師長杖(25等)"
+    ],
+    "notes": "怪多密集升等快，無高價物但藍菇菇噴橘白水、通常打平水錢。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=288",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      25,
+      30
+    ],
+    "map_name": "隱密之地：黑肥肥領土",
+    "display_name": "黑肥肥領地",
+    "type": "map",
+    "mobs": [
+      "黑肥肥"
+    ],
+    "alt_maps": [
+      "隱密之地：黑肥肥領土Ⅱ"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "怪密集",
+      "衝等",
+      "武器自給"
+    ],
+    "drops_highlight": [
+      "高原之劍(35等/商店價14萬)",
+      "弓弩手30/32等武器",
+      "法師長杖(30等)"
+    ],
+    "notes": "怪多密集適合衝等。高原之劍狂戰與見習騎士都需要，其他職業打到賣商店也值14萬。1圖人多可去2圖。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=288",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      25,
+      30
+    ],
+    "map_name": "維多利亞：遺跡發掘地Ⅱ",
+    "display_name": "遺跡挖掘地2",
+    "type": "map",
+    "mobs": [
+      "木面怪人",
+      "石面怪人"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "高價卷軸"
+    ],
+    "drops_highlight": [
+      "手套敏捷卷軸60%",
+      "披風智力卷軸60%",
+      "耳環智力卷軸60%",
+      "長杖魔力卷軸60%"
+    ],
+    "notes": "卷軸值錢，但需30等二轉開放交易後才能兌現。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=288",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      25,
+      30
+    ],
+    "map_name": null,
+    "display_name": "超級綠水靈組隊任務",
+    "type": "party_quest",
+    "mobs": [
+      "超級綠水靈"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "party",
+    "tags": [
+      "組隊任務"
+    ],
+    "drops_highlight": [],
+    "notes": "建議25等以上再來，太早來水錢只會越打越少。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=288",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      55,
+      100
+    ],
+    "map_name": null,
+    "display_name": "金勾海賊團組隊任務",
+    "type": "party_quest",
+    "mobs": [],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "party",
+    "tags": [
+      "組隊任務",
+      "練等兼賺錢"
+    ],
+    "drops_highlight": [],
+    "notes": "幫助剛三轉玩家有效率練等又能賺錢的組隊任務。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      71,
+      85
+    ],
+    "map_name": null,
+    "display_name": "羅密歐與茱麗葉組隊任務",
+    "type": "party_quest",
+    "mobs": [],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "party",
+    "tags": [
+      "組隊任務",
+      "練等兼賺錢"
+    ],
+    "drops_highlight": [],
+    "notes": "幫助剛三轉玩家有效率練等又能賺錢的組隊任務。",
+    "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      60,
+      70
+    ],
+    "map_name": "台北101：時尚大道東部區域",
+    "display_name": "時尚大道東部（冷豔香水）",
+    "type": "map",
+    "mobs": [
+      "冷豔香水"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "101",
+      "低血高經驗",
+      "高迴避"
+    ],
+    "drops_highlight": [
+      "銀龍槍(70等)",
+      "盜賊上衣(70等)",
+      "盜賊鞋(80等)"
+    ],
+    "notes": "香水系列需先打現形再打一次、略影響效率，經驗約與魔龍持平。同等命中110（每少1等+5）。101通則：怪物高迴避，劍士建議60等起全點敏捷至70（約110敏）並用命中卷衝武器，低血高經驗、犧牲攻擊換命中划算。",
+    "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      60,
+      70
+    ],
+    "map_name": "台北101：時尚大道南部區域",
+    "display_name": "時尚大道南部（百花香水）",
+    "type": "map",
+    "mobs": [
+      "百花香水"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "101",
+      "低血高經驗",
+      "高迴避"
+    ],
+    "drops_highlight": [
+      "手套敏捷卷軸10%",
+      "劍士手套(80等)",
+      "弓手鞋(80等)"
+    ],
+    "notes": "經驗500，同樣需打現形，血量稍高。同等命中129（每少1等+5）。",
+    "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      60,
+      70
+    ],
+    "map_name": "台北101：時尚大道北部區域",
+    "display_name": "時尚大道北部（甜心香水）",
+    "type": "map",
+    "mobs": [
+      "甜心香水"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "101",
+      "高迴避"
+    ],
+    "drops_highlight": [
+      "黃閃電甲(70等)",
+      "弓手手套(70等)"
+    ],
+    "notes": "經驗400、比另兩種香水低，效率較差。同等命中92（每少1等+3.6）。",
+    "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      60,
+      70
+    ],
+    "map_name": "台北101：時尚大道西部區域",
+    "display_name": "時尚大道西部（香水混合區）",
+    "type": "map",
+    "mobs": [
+      "冷豔香水",
+      "百花香水",
+      "甜心香水"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "101",
+      "混合區"
+    ],
+    "drops_highlight": [],
+    "notes": "三種香水混雜的區域。",
+    "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      65,
+      75
+    ],
+    "map_name": "台北101：名人大道東部區域",
+    "display_name": "名人大道東部（魔法音響）",
+    "type": "map",
+    "mobs": [
+      "魔法音響"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "101",
+      "高迴避"
+    ],
+    "drops_highlight": [
+      "黃色工地手套",
+      "弓手手套(80等)",
+      "藍閃電甲(70等)",
+      "鳳凰刃(70等)",
+      "盜賊上下衣(60等)"
+    ],
+    "notes": "碰撞傷害1000，效率約十分鐘15萬。同等命中129（每少1等+5）。注意：路程會經過鬼兔妮區域，碰撞高達1500，小心被撞死。",
+    "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      70,
+      90
+    ],
+    "map_name": "台北101：都會廣場東部區域",
+    "display_name": "都會廣場東部（鬼兔妮）",
+    "type": "map",
+    "mobs": [
+      "鬼兔妮"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "101",
+      "自動追人",
+      "高價卷軸"
+    ],
+    "drops_highlight": [
+      "耳環智力卷軸10%",
+      "拳套攻擊卷軸60%",
+      "短杖魔力卷軸60%",
+      "霸王劍(70等)",
+      "黃神弓(70等)",
+      "黑閃電甲(70等)",
+      "鳳凰刃(70等)",
+      "盜賊上下衣(60~80等)"
+    ],
+    "notes": "人偶系列自動追人、碰撞1500。效率約十分鐘20萬。同等命中136（每少1等+5）。",
+    "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      72,
+      90
+    ],
+    "map_name": "台北101：都會廣場北部區域",
+    "display_name": "都會廣場北部（人偶羅絲）",
+    "type": "map",
+    "mobs": [
+      "人偶羅絲"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "101",
+      "自動追人"
+    ],
+    "drops_highlight": [
+      "黃神弓(70等)",
+      "盜賊上衣(70等)"
+    ],
+    "notes": "自動追人、碰撞1600。效率約十分鐘20萬。同等命中147（每少1等+6）。",
+    "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      75,
+      90
+    ],
+    "map_name": "台北101：都會廣場南部區域",
+    "display_name": "都會廣場南部（人偶傑克）",
+    "type": "map",
+    "mobs": [
+      "人偶傑克"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "101",
+      "自動追人"
+    ],
+    "drops_highlight": [
+      "雷之標",
+      "弩攻擊卷軸10%",
+      "黃龍刀(70等)",
+      "青神弓/黃神弓(70等)",
+      "盜賊上下衣(70等)"
+    ],
+    "notes": "自動追人、碰撞高達2000。效率約十分鐘20萬。同等命中166（每少1等+6）。",
+    "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      70,
+      90
+    ],
+    "map_name": "台北101：名人大道北部區域",
+    "display_name": "名人大道北部（魔幻電音）",
+    "type": "map",
+    "mobs": [
+      "魔幻電音"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "solo",
+    "tags": [
+      "101"
+    ],
+    "drops_highlight": [
+      "披風幸運卷軸60%",
+      "黃龍刀(70等)",
+      "青神弓(70等)",
+      "弓手套服/手(70等)",
+      "弓手手套(80等)",
+      "黃/綠閃電甲(70等)",
+      "盜賊上下衣(70等)",
+      "盜賊鞋(80等)"
+    ],
+    "notes": "效率約十分鐘20萬。碰撞約1300、魔法攻擊900。同等命中136（每少1等+6）。",
+    "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      70,
+      120
+    ],
+    "map_name": "台北101：名人大道南部區域",
+    "display_name": "名人大道南部（異形雙碟）",
+    "type": "map",
+    "mobs": [
+      "異型雙碟",
+      "搞怪CD"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "either",
+    "tags": [
+      "101",
+      "高效率首選",
+      "分裂機制"
+    ],
+    "drops_highlight": [
+      "黃龍刀(70等)",
+      "弗勞特之劍",
+      "椎茸(92等/香菇)",
+      "盜賊上下衣(80等)"
+    ],
+    "notes": "異型雙碟(76等)打死分裂成3個搞怪CD(72等)，經驗800+700x3共2900。效率：單人單層25萬／單人多層30萬以上／三人團練40萬以上（每十分鐘）。同等命中147（每少1等+6）。",
+    "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513",
+    "source_author": "呆小笨"
+  },
+  {
+    "level_range": [
+      75,
+      120
+    ],
+    "map_name": "台北101：名人大道西部區域",
+    "display_name": "名人大道西部（音響+CD混合區）",
+    "type": "map",
+    "mobs": [
+      "魔法音響",
+      "魔幻電音",
+      "搞怪CD",
+      "瘋狂喵z客"
+    ],
+    "element": null,
+    "recommended_jobs": [],
+    "party": "either",
+    "tags": [
+      "101",
+      "混合區",
+      "BOSS出沒"
+    ],
+    "drops_highlight": [
+      "各武器卷軸",
+      "日鏢",
+      "各職業100等武器",
+      "101模型(待更新)"
+    ],
+    "notes": "效率約十分鐘25萬。注意中途會出BOSS瘋狂喵z客(100等)，傷害4000~5000、命中需求高達202。",
+    "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513",
+    "source_author": "呆小笨"
+  }
+]

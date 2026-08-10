@@ -1,0 +1,61 @@
+{
+  "_readme": "本檔案記錄「玩家實測」與上游 artale-drop map.json 不符的修正。build script 抓取上游資料後套用本檔：add = 該地圖需補上的怪物，verified_by = 資料來源。上游更新不會覆蓋這些修正。",
+  "maps": {
+    "維多利亞：東方岩石山Ⅵ": {
+      "add_mobs": [
+        "火肥肥"
+      ],
+      "verified_by": "player_ingame",
+      "verified_date": "2026-08-10",
+      "note": "上游資料只有黑肥肥+黑斧木妖，實測該圖為火肥肥+黑斧木妖"
+    },
+    "維多利亞：石人寺院Ⅱ": {
+      "add_mobs": [
+        "石巨人",
+        "藍菇菇",
+        "猴子"
+      ],
+      "verified_by": "player_ingame",
+      "verified_date": "2026-08-10",
+      "note": "上游資料只有蝴蝶精+黑曜石巨人，實測為猴子+蝴蝶精+藍菇菇+石巨人（黑曜石巨人是否存在待確認，暫不移除）"
+    },
+    "台北101：名人大道南部區域": {
+      "add_mobs": [
+        "異型雙碟"
+      ],
+      "verified_by": "bahamut_guide",
+      "verified_date": "2026-08-10",
+      "note": "上游 map.json 無異型雙碟出沒資料，依巴哈攻略(Co.php?sn=47513)補上：打死分裂成3個搞怪CD"
+    },
+    "台北101：名人大道西部區域": {
+      "add_mobs": [
+        "異型雙碟"
+      ],
+      "verified_by": "inferred_from_guide",
+      "verified_date": "2026-08-10",
+      "note": "攻略稱西部為大小音響與CD混合區，CD應來自異型雙碟分裂，推測亦出沒；待玩家實測確認"
+    },
+    "隱密之地：空屋": {
+      "add_mobs": [
+        "菇菇寶貝"
+      ],
+      "create_if_missing": true,
+      "region": "隱密之地",
+      "verified_by": "player_ingame_screenshot",
+      "verified_date": "2026-08-10",
+      "note": "上游無此地圖，玩家小地圖截圖確認正式名為「隱密之地：空屋」（弓箭手村樹屋隱藏圖），出沒菇菇寶貝"
+    },
+    "隱密之地：菇菇山丘": {
+      "add_mobs": [
+        "菇菇寶貝",
+        "綠菇菇",
+        "菇菇仔"
+      ],
+      "create_if_missing": true,
+      "region": "隱密之地",
+      "verified_by": "player_ingame_screenshot",
+      "verified_date": "2026-08-10",
+      "note": "上游無此地圖，玩家小地圖截圖確認正式名為「隱密之地：菇菇山丘」，出沒菇菇寶貝/綠菇菇/菇菇仔"
+    }
+  }
+}

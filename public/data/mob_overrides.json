@@ -1,0 +1,1 @@
+{"_note":"怪物特殊行為標註。no_drops:true 表示這隻怪本來就不掉落（如死亡召喚型），卡片/詳情不顯示「資料待補」，改顯示 behavior_note。","mobs":{"異型雙碟":{"no_drops":true,"behavior_note":"擊殺後分裂為 3 個搞怪CD"}}}

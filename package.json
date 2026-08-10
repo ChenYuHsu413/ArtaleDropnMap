@@ -1,0 +1,20 @@
+{
+  "name": "artale-dropnmap",
+  "version": "1.0.0",
+  "description": "Artale 練等打寶決策工具 — 練等推薦 + 掉落查詢",
+  "type": "module",
+  "scripts": {
+    "data": "node scripts/build-data.mjs",
+    "data:fresh": "node scripts/build-data.mjs --no-cache",
+    "dev": "vite",
+    "build": "vite build",
+    "prebuild": "node scripts/build-data.mjs --if-missing",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  },
+  "dependencies": {
+    "fuse.js": "^7.0.0"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "_readme": "人工維護的地圖走法路線。v2 地圖頁「怎麼走」功能的資料來源，不依賴 GMS 相鄰資料。",
+  "routes": [
+    {
+      "destination": "摩登101（台北101）",
+      "dest_maps_prefix": "台北101：",
+      "steps": [
+        "世界旅遊 進入「西門町」",
+        "往捷運站方向按「上」",
+        "與眼鏡NPC對話進入捷運車廂",
+        "一直往右走即抵達摩登101"
+      ],
+      "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513"
+    },
+    {
+      "destination": "隱密之地：猴子沼澤地Ⅲ",
+      "steps": [
+        "從奇幻村出發",
+        "經墮落城市前往猴子沼澤地",
+        "注意：路上有機率遇到野王，可能直接損失經驗"
+      ],
+      "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578"
+    }
+  ]
+}
