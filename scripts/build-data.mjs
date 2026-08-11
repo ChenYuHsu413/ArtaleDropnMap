@@ -16,6 +16,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { normalize } from '../src/lib/normalize.js';
+import { loadPatches, applyPatches, adaptLegacyReports, summarizeReport } from './lib/patch.mjs';
+import * as OpenCC from 'opencc-js';
+
+// 繁→簡（僅 build time；產出簡體變體寫進預建索引，讓簡體輸入命中，runtime 不需 opencc）
+const toSimp = OpenCC.Converter({ from: 'tw', to: 'cn' });
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -486,14 +491,65 @@ if (levelingIssues.length) {
 
 // 7b) 怪物特殊行為標註（data-src/mob_overrides.json）：no_drops 等
 const mobOverrides = readSrc('mob_overrides.json', { mobs: {} });
-let mobOverrideApplied = 0;
+const mobOverrideReport = [];
 for (const [mobName, ov] of Object.entries(mobOverrides.mobs || {})) {
-  if (!monsters[mobName]) { log(`  [warn] mob_overrides「${mobName}」怪物不存在`); continue; }
-  if (ov.no_drops) monsters[mobName].no_drops = true;
-  if (ov.behavior_note) monsters[mobName].behavior_note = ov.behavior_note;
-  mobOverrideApplied++;
+  if (!monsters[mobName]) { log(`  [warn] mob_overrides「${mobName}」怪物不存在`); mobOverrideReport.push({ key: mobName, status: 'target_missing' }); continue; }
+  const applied = [];
+  if (ov.no_drops) { monsters[mobName].no_drops = true; applied.push('no_drops'); }
+  if (ov.behavior_note) { monsters[mobName].behavior_note = ov.behavior_note; applied.push('behavior_note'); }
+  mobOverrideReport.push({ key: mobName, status: applied.length ? 'applied' : 'noop', detail: applied.join('+') });
 }
-log(`[data] 套用怪物行為標註: ${mobOverrideApplied} 筆`);
+log(`[data] 套用怪物行為標註: ${mobOverrideReport.filter((r) => r.status === 'applied').length} 筆`);
+
+// 7c) L3 patch 資料層（data-src/patches/）——最後套用、優先度最高，覆蓋 L1 上游 + L2 補全。
+//     以最終 monsters/items/maps 為對象做 add/override/remove，不擾動既有管線 → 零破壞。
+let patchMapSeq = 0;
+function monsterTemplate(name) {
+  return {
+    name, id: null, level: 0, hp: 0, mp: 0, exp: 0, evasion: 0, pdef: 0, mdef: 0,
+    accuracy_required: 0, accuracy_raw: '', element_codes: '', image: '', icon: null, maps: [], drops: [],
+  };
+}
+function resolveItemIdByName(name) {
+  const itemId = nameToItemId.get(name) || 'custom:' + name;
+  ensureItem(itemId, name);
+  return itemId;
+}
+function createMap(name, fields) {
+  const id = 'map_patch_' + String(++patchMapSeq).padStart(3, '0');
+  const region = fields.region || (name.includes('：') ? name.split('：')[0].trim() : '其他');
+  const mp = {
+    id, name, region, region_status: regionStatus(region),
+    mobs: [], gms_map_id: null, gms_map_name: null, gms_street_name: null,
+    match_confidence: null, match_support: 0, match_margin: null, match_bridgeable: 0,
+    gms_has_minimap: false, minimap_image: null, route: null, neighbors: [], gms_neighbors: [],
+    ...fields,
+  };
+  maps[id] = mp;
+  mapNameToId.set(name, id);
+  return mp;
+}
+function linkMonsterToMap(monsterName, mapName) {
+  const m = monsters[monsterName];
+  if (!m) { log(`  [warn] patch: 無法把不存在的怪物「${monsterName}」掛到地圖「${mapName}」`); return; }
+  let mp = mapNameToId.has(mapName) ? maps[mapNameToId.get(mapName)] : null;
+  if (!mp) mp = createMap(mapName, {});
+  if (!mp.mobs.some((x) => x.mob === monsterName)) mp.mobs.push({ mob: monsterName });
+  if (!m.maps.includes(mp.id)) m.maps.push(mp.id);
+}
+
+const patches = loadPatches(path.join(DATA_SRC, 'patches'));
+const patchReport = [];
+applyPatches(
+  { monsters, items, maps, mapNameToId, monsterTemplate, resolveItemIdByName, linkMonsterToMap, createMap },
+  patches, patchReport
+);
+// 既有 override 檔以 adapter 併入同一報告（不改其套用行為，僅讓報告涵蓋新舊修正）
+adaptLegacyReports({ mobOverrideReport, mapOverrideReport: overrideReport }, patchReport);
+const patchSummary = summarizeReport(patchReport);
+log(`[data] Patch 套用: 共 ${patchSummary.total} 筆（生效 ${patchSummary.applied}、no-op ${patchSummary.noop}、對象缺失 ${patchSummary.target_missing}、略過 ${patchSummary.skipped}）`);
+if (patchSummary.removable.length) log(`  [info] 可清理（上游已相符，可刪 patch）: ${patchSummary.removable.map((r) => `${r.source}:${r.key}`).join('、')}`);
+if (patchSummary.unresolved.length) log(`  [warn] patch 對象缺失（key 打錯或上游改名?）: ${patchSummary.unresolved.map((r) => `${r.source}:${r.key}`).join('、')}`);
 
 // 8) data_gaps 報告
 const monsterList = Object.values(monsters);
@@ -535,8 +591,14 @@ const gaps = {
     region_unknown: unknownRegionsPresent.length,
     region_unlisted: unlistedRegions.size,
     event_map_candidates: eventMapCandidates.length,
+    patches_total: patchSummary.total,
+    patches_applied: patchSummary.applied,
+    patches_noop: patchSummary.noop,
+    patches_target_missing: patchSummary.target_missing,
   },
   missing_images: missingImages,
+  patch_summary: patchSummary,
+  patch_report: patchReport,
   region_unconfirmed: regionUnconfirmed,
   event_map_candidates: eventMapCandidates,
   map_overrides_applied: overrideReport,
@@ -553,12 +615,7 @@ const gaps = {
 // 清掉 monsters 內部暫存欄位
 for (const m of monsterList) delete m.gms_mob_id_raw;
 
-// 9) 怪物俗稱別名（人工維護於 data-src/mob_alias.json，格式 { "俗稱": "正式怪物名" }）
-const mobAlias = readSrc('mob_alias.json', {});
-for (const [alias, official] of Object.entries(mobAlias)) {
-  if (alias.startsWith('_')) continue;
-  if (!monsters[official]) log(`  [warn] mob_alias「${alias}」對應的正式名不存在：${official}`);
-}
+// 9) 怪物俗稱別名已併入統一 data-src/aliases.json（monster 區），mob_alias.json 已淘汰。
 const skillBuilds = {
   _note: '技能點法，v1 不實作內容；預留空結構與隱藏頁籤。',
   builds: [],
@@ -571,6 +628,61 @@ for (const [alias, canon] of Object.entries(mapAlias.aliases || {})) {
   if (!hit) log(`  [warn] map_alias「${alias}」的正式名片語未命中任何地圖：${canon}`);
 }
 
+// 9c) 統一別名（data-src/aliases.json：canonical → 別名陣列，涵蓋 monster/item/map）
+const aliasesSrc = readSrc('aliases.json', { monster: {}, item: {}, map: {} });
+const itemByName = new Map(Object.values(items).map((it) => [it.name, it]));
+const mapByFullName = new Map(Object.values(maps).map((m) => [m.name, m]));
+const aliasIssues = [];
+for (const canon of Object.keys(aliasesSrc.monster || {})) if (!monsters[canon]) aliasIssues.push({ type: 'monster', canonical: canon });
+for (const canon of Object.keys(aliasesSrc.item || {})) if (!itemByName.has(canon)) aliasIssues.push({ type: 'item', canonical: canon });
+for (const canon of Object.keys(aliasesSrc.map || {})) if (!mapByFullName.has(canon)) aliasIssues.push({ type: 'map', canonical: canon });
+if (aliasIssues.length) log(`  [warn] aliases.json 有 ${aliasIssues.length} 筆 canonical 不存在：${aliasIssues.map((a) => a.canonical).join('、')}`);
+gaps.alias_issues = aliasIssues;
+gaps.summary.alias_issues = aliasIssues.length;
+
+// 11) 預建搜尋索引（search_index.json）——build time 產出，含 opencc 簡體變體。
+// 前端載入後直接在記憶體查詢，不在輸入時重建索引。別名合併進同一實體、不產生重複條目。
+const mapAliasPairs = Object.entries(mapAlias.aliases || {});
+const simpOf = (s) => normalize(toSimp(s));
+const joinNorm = (arr) => [...new Set(arr.filter(Boolean).map(normalize))].join(' ');
+const joinSimp = (arr) => [...new Set(arr.filter(Boolean).map(simpOf))].join(' ');
+// 只在簡體與正規化結果不同時才寫入 simp 欄位，省體積（純繁中或英數的名稱 simp === norm 就省略）
+const simpField = (name, normVal) => { const s = simpOf(name); return s === normVal ? '' : s; };
+
+const searchDocs = [];
+for (const m of Object.values(monsters)) {
+  const aliases = aliasesSrc.monster?.[m.name] || [];
+  const norm = normalize(m.name);
+  const aliasNorm = joinNorm(aliases);
+  const aliasSimp = joinSimp(aliases);
+  searchDocs.push({
+    type: 'monster', key: m.name, name: m.name, norm, simp: simpField(m.name, norm),
+    alias_norm: aliasNorm, alias_simp: aliasSimp === aliasNorm ? '' : aliasSimp, level: m.level,
+  });
+}
+for (const it of Object.values(items)) {
+  const aliases = [...(it.aliases || []), ...(aliasesSrc.item?.[it.name] || [])];
+  const norm = normalize(it.name);
+  const aliasNorm = joinNorm(aliases);
+  const aliasSimp = joinSimp(aliases);
+  searchDocs.push({
+    type: 'item', key: it.id, name: it.name, norm, simp: simpField(it.name, norm),
+    alias_norm: aliasNorm, alias_simp: aliasSimp === aliasNorm ? '' : aliasSimp, dropCount: (it.dropped_by || []).length,
+  });
+}
+for (const mp of Object.values(maps)) {
+  const aliasTerms = [...(aliasesSrc.map?.[mp.name] || [])];
+  for (const [alias, canon] of mapAliasPairs) if (mp.name.includes(canon)) aliasTerms.push(alias);
+  const norm = normalize(mp.name);
+  const aliasNorm = joinNorm(aliasTerms);
+  const aliasSimp = joinSimp(aliasTerms);
+  searchDocs.push({
+    type: 'map', key: mp.id, name: mp.name, norm, simp: simpField(mp.name, norm),
+    alias_norm: aliasNorm, alias_simp: aliasSimp === aliasNorm ? '' : aliasSimp, region: mp.region, mobCount: (mp.mobs || []).length,
+  });
+}
+log(`[data] 預建搜尋索引: ${searchDocs.length} 筆（含簡體變體 ${searchDocs.filter((d) => d.simp).length}）`);
+
 // 10) 寫出
 const writeJson = (name, data) => {
   fs.writeFileSync(path.join(OUT_DIR, name), JSON.stringify(data));
@@ -580,8 +692,9 @@ writeJson('monsters.json', monsters);
 writeJson('items.json', items);
 writeJson('maps.json', maps);
 writeJson('leveling.json', leveling);
-writeJson('mob_alias.json', mobAlias);
 writeJson('map_alias.json', mapAlias);
+writeJson('aliases.json', aliasesSrc);
+writeJson('search_index.json', searchDocs);
 writeJson('mob_overrides.json', mobOverrides);
 writeJson('region_status.json', regionStatusSrc);
 writeJson('skill_builds.json', skillBuilds);

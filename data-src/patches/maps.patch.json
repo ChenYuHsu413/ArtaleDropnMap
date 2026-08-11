@@ -1,0 +1,6 @@
+{
+  "_readme": "L3 地圖 patch。以「地圖正式名」為 key。add=新增上游沒有的圖（可帶 region/minimap_image/route/add_mobs）；override=覆蓋欄位或用 add_mobs 補怪；remove=排除。既有 map_overrides.json 仍原地運作，其結果一併列入統一 patch_report。",
+  "add": {},
+  "override": {},
+  "remove": []
+}

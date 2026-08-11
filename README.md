@@ -68,14 +68,17 @@ npm run build    # 產出 dist/（可直接丟 GitHub Pages）
 | `data-src/leveling.json` | 練等推薦（真實內容，schema 見下）→ 輸出 `public/data/leveling.json` |
 | `data-src/map_overrides.json` | **地圖修正層**：玩家實測與上游 `map.json` 不符的更正。build 於**抓取上游後、建索引前**套用，`add_mobs` 把怪物補進對應地圖；`create_if_missing: true`（含 `region`）可**新建上游不存在的地圖**（如「隱密之地：空屋」，無 minimap 顯示「預覽待補」）；未設 create_if_missing 又找不到地圖則警告不新建。上游更新不覆蓋 |
 | `data-src/routes.json` | 地圖**走法路線**（不依賴 GMS 相鄰）。地圖名符合 `destination`（精確）或 `dest_maps_prefix`（前綴）就把 `steps` 掛到該圖，地圖頁「怎麼走」顯示 |
-| `data-src/mob_alias.json` | 怪物俗稱，格式 `{ "俗稱": "正式名" }`（如 `白野狼→白狼`）；搜尋時反轉成正式名的別名 |
 | `data-src/mob_overrides.json` | 怪物特殊行為，`{ mobs: { 怪名: { no_drops, behavior_note } } }`；`no_drops` 者不標「資料待補」，改顯示行為說明 |
 | `data-src/region_status.json` | 地圖前綴（冒號前段）開放狀態：`open`（顯示）/`closed`（全站排除）/`unknown`（顯示但標「開放狀態未確認」並列入 data_gaps）。另有 `closed_maps`＝**開放前綴下的單圖黑名單**（活動殘留＋鬧鬼宅邸內部房間＋GM 活動圖，51 張），比對前去除全形/半形空白（上游有冒號後帶空白的髒 key）。過濾順序＝前綴檢查 → closed_maps 精確比對。表中未列的新前綴**視為 unknown 並記入 data_gaps**，不靜默放行 |
-| `data-src/map_alias.json` | 地圖俗稱，`{ "俗稱": "正式片語" }`（如 `摩登101→台北101`）；地圖名含該片語就把俗稱掛為搜尋別名，並讓 `getMapByName` 能解析俗稱 |
+| `data-src/aliases.json` | **統一別名來源**（canonical 正式名 → 別名陣列），分 `monster`/`item`/`map` 三類（如 `異型雙碟: ["雙碟","異形雙碟"]`）。build 併入預建搜尋索引、不產生重複條目；canonical 不存在者列入 `data_gaps.alias_issues`。**怪物俗稱（原 `mob_alias.json`）已併入此檔 `monster` 區並淘汰舊檔** |
+| `data-src/map_alias.json` | **⚠️ 片語替換規則，非別名表**（不是 `aliases.json` 的漏網之魚，請勿提議遷移）。語義＝`{ "俗稱": "正式片語" }` 的**子字串比對、一對多**：一個俗稱可命中多張地圖（如 `摩登101→台北101` 命中所有 `台北101：…` 圖），並由前端 `getMapByName` 做**片語替換**解析地圖名。此語義放不進 `aliases.json` 的「完整地圖名→別名」schema，故刻意獨立；其定位留待**地圖頁階段**重評 |
+| `data-src/patches/*.patch.json` | **L3 patch 資料層**（`monsters`/`items`/`maps` 各一檔），最後套用、優先度最高，覆蓋上游(L1)+maplestory.io(L2)。三種操作 `add`（新增上游沒有的實體，怪物可帶 `drops`/`maps` 自動串接）、`override`（覆蓋欄位）、`remove`（排除錯誤），以穩定 key（怪名/物品 id/地圖名）定位、不依賴順序。套用報告見 `data_gaps.patch_report`：`applied`/`noop`（上游已相符，提示可刪，不自動刪）/`target_missing` |
 
-build 會驗證這些來源的參照（地圖名／怪物名是否存在），問題列入 `data_gaps.json` 的 `map_overrides_applied` 與 `leveling_issues`。
+**三層資料架構**：L1 上游 artale-drop → L2 maplestory.io 補全（icon/foundAt/minimap）→ **L3 `data-src/patches/`**（最後套用）。既有 `map_overrides.json`/`mob_overrides.json`/`region_status.json` 語義不變、原地運作，透過 adapter 一併納入統一 `patch_report`（新舊修正一覽）；真正搬進 `patches/` 的遷移列為待辦。
 
-地圖、怪物、物品**都進搜尋索引**：搜地圖名或俗稱（如「摩登101」「試煉洞穴」）可直接跳到地圖頁。
+build 會驗證這些來源的參照（地圖名／怪物名是否存在），問題列入 `data_gaps.json` 的 `map_overrides_applied`、`leveling_issues`、`alias_issues`、`patch_report`。
+
+地圖、怪物、物品**都進預建搜尋索引**（`public/data/search_index.json`，build time 產出，含 `opencc-js` 產生的**簡體變體**）：前端載入後在記憶體查詢，不在輸入時重建索引。搜地圖名或俗稱（如「摩登101」「試煉洞穴」）可直接跳到地圖頁；**繁簡混用**（如「异型双碟」）與**別名/簡稱**（如「雙碟」「白水」）皆命中。比對優先序：完全相符 > 前綴 > 別名 > 模糊（Fuse.js，容忍 1–2 字差異）。全域搜尋框在首頁頂部與 `/search` 頁，結果分**怪物/物品/地圖**三組。
 
 **數值欄位清洗**：上游 `mob.json` 的 hp/exp 等欄位有髒字串，`num()` 統一處理：`"?"→0`、`"130萬"→1300000`（萬/億）、`"461000\n(+…)"→461000`。**斜線＝「型態一/型態二」→ 解析成陣列保留兩值**（如 `"800/700"→[800,700]`）：
 - 顯示層兩值並列（`800 / 700`）。
@@ -108,7 +111,9 @@ maplestory.io **沒有中文/台服區**，中文地圖名無法字串比對。�
 | `maps.json` | mapId | `{ id, name, region, mobs:[{mob:怪物名}], minimap_image, gms_map_id, gms_map_name, match_confidence, match_support, gms_has_minimap, neighbors:[], gms_neighbors:[] }` |
 | `leveling.json` | — | 練等推薦（來源 `data-src/leveling.json`；schema 見下） |
 | `data_gaps.json` | — | 缺漏報告：缺掉落 / 缺地圖 / 無 GMS 橋接的怪、低信心地圖（含候選 id 與分數）、無 id 掉落物 |
-| `mob_alias.json` / `skill_builds.json` | — | 預留空結構（怪物俗稱 / 技能點法，v1 不實作內容） |
+| `aliases.json` / `map_alias.json` | — | 統一別名（怪/物/圖）/ 地圖俗稱片語 |
+| `search_index.json` | — | 預建搜尋索引（怪/物/圖，含 `norm`/`simp` 簡體變體與別名） |
+| `skill_builds.json` | — | 預留空結構（技能點法，v1 不實作內容） |
 | `area.json` / `boss_time.json` / `meta.json` | — | 區域開放狀態 / BOSS 重生時間 / 建置版本與統計 |
 
 **交叉參照鍵**：怪物一律以**怪物名**互相參照（`maps.mobs[].mob`、`items.dropped_by[]`）；`monsters.id`（GMS mob id）可能為 null，故不當交叉鍵。`monsters.drops[]`→itemId、`monsters.maps[]`→mapId。
@@ -145,7 +150,7 @@ maplestory.io **沒有中文/台服區**，中文地圖名無法字串比對。�
 - 練等推薦：目前 43 筆（`data-src/leveling.json`），可持續增補。
 - 地圖 minimap 覆蓋 ~40%（自訂伺服器限制）；低信心者見 `data_gaps.json`。
 - 「怎麼走」：人工路線（`data-src/routes.json`）已可顯示；自動相鄰麵包屑仍 v2（`gms_neighbors` 已備）。
-- 別名：`data-src/mob_alias.json`（6 筆）、`data-src/map_alias.json`（6 筆），可持續增補。
+- 別名：統一於 `data-src/aliases.json`（怪/物/圖 canonical→別名，含原 `mob_alias` 6 筆已併入）＋ `data-src/map_alias.json`（地圖俗稱片語 6 筆，因片語語義維持獨立），可持續增補。
 - 技能點法：頁面與資料結構預留，v1 不實作。
 - 怪物元素抗性：`monsters[].element_codes` 已保留原始碼（F/I/L/S/H），v2 可解碼顯示。
 - 卡片牆效能已做 lazy/debounce/分批；Lighthouse mobile 分數請於實際部署站台驗證（本機瀏覽器面板不合成畫面，無法在此跑 Lighthouse/截圖）。

@@ -1,4 +1,4 @@
-import { search, mobIconUrl, itemIconUrl, getMonster, getItem, fmtStat } from './store.js';
+import { searchGrouped, mobIconUrl, itemIconUrl, getMonster, getItem, fmtStat } from './store.js';
 import { go } from './router.js';
 
 export function esc(s) {
@@ -26,16 +26,24 @@ function gotoDoc(doc) {
   else go(`#/item/${encodeURIComponent(doc.key)}`);
 }
 
-// 可重用的即時搜尋框；autoNavigate=false 時 Enter 導到搜尋結果頁。
-export function mountSearchBox(root, { placeholder = '搜尋物品或怪物…', initial = '' } = {}) {
+const GROUP_LABEL = { monster: '怪物', item: '物品', map: '地圖' };
+function docMeta(d) {
+  if (d.type === 'monster') return `Lv.${d.level ?? '?'}`;
+  if (d.type === 'map') return esc(d.region || '');
+  return d.dropCount ? `${d.dropCount} 怪掉落` : '';
+}
+
+// 可重用的全域即時搜尋框：分組 autocomplete（怪物/物品/地圖）+ debounce。
+// onInput(value) 每次（debounce 後）輸入變動時呼叫，供首頁同步過濾圖卡牆。
+export function mountSearchBox(root, { placeholder = '搜尋怪物、物品或地圖…', initial = '', debounce = 200, onInput = null, perGroup = 6 } = {}) {
   root.innerHTML = `
     <div class="searchbox">
-      <input type="search" autocomplete="off" placeholder="${esc(placeholder)}" value="${esc(initial)}" />
+      <input type="search" autocomplete="off" enterkeyhint="search" placeholder="${esc(placeholder)}" value="${esc(initial)}" />
       <div class="suggest" hidden></div>
     </div>`;
   const input = root.querySelector('input');
   const box = root.querySelector('.suggest');
-  let results = [];
+  let results = []; // 攤平的可選項（依組別順序：怪物→物品→地圖）
   let active = -1;
 
   const close = () => { box.hidden = true; active = -1; };
@@ -43,43 +51,52 @@ export function mountSearchBox(root, { placeholder = '搜尋物品或怪物…',
 
   function renderSuggest() {
     const q = input.value.trim();
-    if (!q) { box.innerHTML = ''; close(); return; }
-    results = search(q, 8);
+    if (!q) { box.innerHTML = ''; results = []; close(); return; }
+    const groups = searchGrouped(q, perGroup);
+    results = [...groups.monster, ...groups.item, ...groups.map];
     if (!results.length) {
-      box.innerHTML = `<div class="suggest-item muted">查無符合「${esc(q)}」</div>`;
+      box.innerHTML = `<div class="suggest-empty muted">查無符合「${esc(q)}」，試試更短的關鍵字或別名。</div>`;
       open(); return;
     }
-    box.innerHTML = results.map((d, i) => {
-      const kind = d.type === 'monster' ? '怪物' : d.type === 'map' ? '地圖' : '物品';
-      const meta = d.type === 'monster'
-        ? `Lv.${d.level ?? '?'}`
-        : d.type === 'map'
-          ? esc(d.region || '')
-          : (d.dropCount ? `${d.dropCount} 怪掉落` : '');
-      return `<div class="suggest-item" data-i="${i}">
-        ${suggestIconHtml(d)}
-        <span class="name">${esc(d.name)}</span>
-        <span class="kind">${kind} ${meta}</span>
-      </div>`;
-    }).join('');
+    let i = 0;
+    const sectionHtml = (type) => {
+      const list = groups[type];
+      if (!list.length) return '';
+      const rows = list.map((d) => {
+        const idx = i++;
+        return `<div class="suggest-item" data-i="${idx}">
+          ${suggestIconHtml(d)}
+          <span class="name">${esc(d.name)}</span>
+          <span class="kind">${docMeta(d)}</span>
+        </div>`;
+      }).join('');
+      return `<div class="suggest-group"><div class="suggest-head">${GROUP_LABEL[type]} <span class="pill">${list.length}</span></div>${rows}</div>`;
+    };
+    box.innerHTML = sectionHtml('monster') + sectionHtml('item') + sectionHtml('map');
     active = -1;
     open();
   }
 
-  input.addEventListener('input', renderSuggest);
+  let t;
+  input.addEventListener('input', () => {
+    clearTimeout(t);
+    t = setTimeout(() => { renderSuggest(); if (onInput) onInput(input.value.trim()); }, debounce);
+  });
   input.addEventListener('focus', () => { if (input.value.trim()) renderSuggest(); });
   input.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, results.length - 1); paintActive(); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); paintActive(); }
     else if (e.key === 'Enter') {
+      clearTimeout(t);
       if (active >= 0 && results[active]) gotoDoc(results[active]);
       else if (input.value.trim()) go(`#/search?q=${encodeURIComponent(input.value.trim())}`);
       close();
     } else if (e.key === 'Escape') close();
   });
   function paintActive() {
-    [...box.children].forEach((c, i) => c.classList.toggle('active', i === active));
-    if (active >= 0 && box.children[active]) box.children[active].scrollIntoView({ block: 'nearest' });
+    const items = box.querySelectorAll('.suggest-item');
+    items.forEach((c, i) => c.classList.toggle('active', i === active));
+    if (active >= 0 && items[active]) items[active].scrollIntoView({ block: 'nearest' });
   }
   box.addEventListener('mousedown', (e) => {
     const item = e.target.closest('.suggest-item');

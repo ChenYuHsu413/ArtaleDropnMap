@@ -10,11 +10,11 @@ export const store = {
   maps: {}, // id -> record
   leveling: [],
   meta: {},
-  mobAlias: {},
   bossTime: {},
   ready: false,
   _fuse: null,
   _mapByName: null,
+  _searchIndex: null,
 };
 
 async function getJson(f, ver) {
@@ -29,23 +29,23 @@ export async function loadData() {
   if (store.ready) return store;
   const meta = await getJson('meta.json').catch(() => ({}));
   const ver = meta.built_at || '';
-  const [monsters, items, maps, leveling, mobAlias, mapAlias, bossTime] = await Promise.all([
+  const [monsters, items, maps, leveling, mapAlias, bossTime, searchIndex] = await Promise.all([
     getJson('monsters.json', ver),
     getJson('items.json', ver),
     getJson('maps.json', ver),
     getJson('leveling.json', ver),
-    getJson('mob_alias.json', ver).catch(() => ({})),
     getJson('map_alias.json', ver).catch(() => ({ aliases: {} })),
     getJson('boss_time.json', ver).catch(() => ({})),
+    getJson('search_index.json', ver).catch(() => null),
   ]);
   store.monsters = monsters;
   store.items = items;
   store.maps = maps;
   store.leveling = leveling;
   store.meta = meta;
-  store.mobAlias = mobAlias;
   store.mapAlias = mapAlias && mapAlias.aliases ? mapAlias.aliases : {};
   store.bossTime = bossTime;
+  store._searchIndex = searchIndex;
 
   store._mapByName = new Map(Object.values(maps).map((m) => [m.name, m]));
 
@@ -69,89 +69,61 @@ export async function loadData() {
   return store;
 }
 
-// 建立搜尋索引：怪物 + 物品，正規化後的名字與別名都放進 Fuse。
+// 搜尋索引於 build time 預產（public/data/search_index.json，含 opencc 簡體變體）。
+// 前端只把它載入記憶體並建 Fuse；不在輸入時重建。docs 欄位：
+//   { type, key, name, norm, simp, alias_norm, alias_simp, level|dropCount|region,mobCount }
 function buildSearchIndex() {
-  // mob_alias.json 為 { 俗稱: 正式名 }；反轉成 正式名 -> [俗稱...] 供搜尋
-  const aliasesByMob = new Map();
-  for (const [alias, official] of Object.entries(store.mobAlias || {})) {
-    if (alias.startsWith('_')) continue;
-    if (!aliasesByMob.has(official)) aliasesByMob.set(official, []);
-    aliasesByMob.get(official).push(alias);
+  const docs = store._searchIndex || [];
+  // 別名詞陣列（正規化 + 簡體）預切好，供 exact/prefix/alias 比對
+  for (const d of docs) {
+    d._aliasTerms = ((d.alias_norm || '') + ' ' + (d.alias_simp || '')).split(' ').filter(Boolean);
   }
-  store._mobAliasesByName = aliasesByMob;
-
-  const docs = [];
-  for (const m of Object.values(store.monsters)) {
-    const aliases = aliasesByMob.get(m.name) || [];
-    docs.push({
-      type: 'monster',
-      key: m.name,
-      name: m.name,
-      norm: normalize(m.name),
-      alias_norm: aliases.map(normalize).join(' '),
-      level: m.level,
-      image: m.image,
-    });
-  }
-  for (const it of Object.values(store.items)) {
-    const aliasNorm = (it.aliases || []).map(normalize).join(' ');
-    docs.push({
-      type: 'item',
-      key: it.id,
-      name: it.name,
-      norm: normalize(it.name),
-      alias_norm: aliasNorm,
-      dropCount: (it.dropped_by || []).length,
-    });
-  }
-  // 地圖也進索引，讓玩家用地圖名或俗稱（map_alias）找到地圖頁。
-  // map_alias 為 { 俗稱: 正式片語 }；若地圖名含該正式片語，就把俗稱掛為別名詞。
-  const mapAliasPairs = Object.entries(store.mapAlias || {});
-  for (const mp of Object.values(store.maps)) {
-    const aliasTerms = [];
-    for (const [alias, canon] of mapAliasPairs) {
-      if (mp.name.includes(canon)) aliasTerms.push(alias);
-    }
-    docs.push({
-      type: 'map',
-      key: mp.id,
-      name: mp.name,
-      norm: normalize(mp.name),
-      alias_norm: aliasTerms.map(normalize).join(' '),
-      region: mp.region,
-      mobCount: (mp.mobs || []).length,
-    });
-  }
+  store._docs = docs;
   store._fuse = new Fuse(docs, {
     includeScore: true,
     threshold: 0.42, // 容忍打錯一個字
     ignoreLocation: true,
     minMatchCharLength: 1,
     keys: [
-      { name: 'norm', weight: 0.7 },
-      { name: 'alias_norm', weight: 0.3 },
+      { name: 'norm', weight: 0.6 },
+      { name: 'simp', weight: 0.2 }, // 簡體變體，讓簡體輸入也能模糊命中
+      { name: 'alias_norm', weight: 0.15 },
+      { name: 'alias_simp', weight: 0.05 },
     ],
   });
-  store._docs = docs;
 }
 
-// 搜尋：先精確（正規化相等）再模糊。
+// 搜尋比對優先序：完全相符 > 前綴相符 > 別名相符 > 模糊相符。
+// norm=繁中正規化、simp=簡體正規化 → 繁簡輸入皆可命中同一實體。
 export function search(query, limit = 20) {
   const q = normalize(query);
   if (!q) return [];
-  const exact = [];
-  const exactKeys = new Set();
+  const seen = new Set();
+  const buckets = [[], [], []]; // 0=exact, 1=prefix, 2=alias
+  const take = (d, tier) => { const k = d.type + ':' + d.key; if (seen.has(k)) return; seen.add(k); buckets[tier].push(d); };
   for (const d of store._docs) {
-    if (d.norm === q || (d.alias_norm && d.alias_norm.split(' ').includes(q))) {
-      exact.push(d);
-      exactKeys.add(d.type + ':' + d.key);
-    }
+    if (d.norm === q || d.simp === q) { take(d, 0); continue; }
+    if (d.norm.startsWith(q) || (d.simp && d.simp.startsWith(q))) { take(d, 1); continue; }
+    if (d._aliasTerms.includes(q) || d._aliasTerms.some((t) => t.startsWith(q))) take(d, 2);
   }
+  const ranked = [...buckets[0], ...buckets[1], ...buckets[2]];
+  if (ranked.length >= limit) return ranked.slice(0, limit);
+  // 補模糊
   const fuzzy = store._fuse
-    .search(q, { limit: limit + exact.length })
+    .search(q, { limit: limit + ranked.length })
     .map((r) => r.item)
-    .filter((d) => !exactKeys.has(d.type + ':' + d.key));
-  return [...exact, ...fuzzy].slice(0, limit);
+    .filter((d) => !seen.has(d.type + ':' + d.key));
+  return [...ranked, ...fuzzy].slice(0, limit);
+}
+
+// 分組搜尋：回傳 { monster, item, map } 三組（各自已依優先序排序）。供全域搜尋頁/下拉分組顯示。
+export function searchGrouped(query, perGroup = 8) {
+  const all = search(query, perGroup * 6);
+  const groups = { monster: [], item: [], map: [] };
+  for (const d of all) {
+    if (groups[d.type] && groups[d.type].length < perGroup) groups[d.type].push(d);
+  }
+  return groups;
 }
 
 // 便捷取用

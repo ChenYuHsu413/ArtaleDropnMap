@@ -1,0 +1,6 @@
+{
+  "_readme": "L3 物品 patch。以「itemId」為 key（數字 id 或 custom:名稱）。add=新增物品；override=覆蓋欄位（name/aliases）；remove=排除。",
+  "add": {},
+  "override": {},
+  "remove": []
+}

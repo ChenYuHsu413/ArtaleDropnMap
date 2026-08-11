@@ -1,0 +1,6 @@
+{
+  "_readme": "L3 怪物 patch，最後套用、永遠優先，覆蓋上游(L1)+maplestory.io(L2)。以「正式怪物名」為 key。add=新增上游沒有的怪；override=覆蓋欄位（level/hp/exp/icon/no_drops/behavior_note…）；remove=排除錯誤怪。add 可帶 drops:[品名]、maps:[圖名] 自動串接掉落與出沒圖。上游若日後補上同一 key，add 會顯示 no-op 提示可刪（見 data_gaps.patch_report）。",
+  "add": {},
+  "override": {},
+  "remove": []
+}

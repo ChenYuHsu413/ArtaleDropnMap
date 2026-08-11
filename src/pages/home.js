@@ -1,6 +1,5 @@
 import { store, search, getMonster } from '../lib/store.js';
-import { monsterCard, esc } from '../lib/ui.js';
-import { go } from '../lib/router.js';
+import { monsterCard, mountSearchBox, esc } from '../lib/ui.js';
 
 const BATCH = 60;
 const LEVEL_CHIPS = [
@@ -25,14 +24,12 @@ export function homePage({ query }) {
     .join('');
 
   const html = `
+    <div class="home-search" id="global-search"></div>
     <div class="hero-strip">
       <h1 class="pixel">怪物圖鑑</h1>
-      <span class="sub">點卡片看掉落與刷圖；要練等點右上「練等」。</span>
+      <span class="sub">上方搜尋框可查怪物・物品・地圖；下方圖卡牆可依等級／區域瀏覽。</span>
     </div>
     <div class="toolbar">
-      <div class="search-wrap">
-        <input type="search" id="wall-search" autocomplete="off" placeholder="搜尋怪物（打字即時篩選，例：異形→異型）" value="${esc(state.query)}" />
-      </div>
       <div class="chips" id="lv-chips">
         ${LEVEL_CHIPS.map((c) => `<button class="chip ${c.key === 'all' ? 'on' : ''}" data-key="${c.key}">${c.label}</button>`).join('')}
       </div>
@@ -48,7 +45,6 @@ export function homePage({ query }) {
     const wall = el.querySelector('#wall');
     const meta = el.querySelector('#wall-meta');
     const loadmore = el.querySelector('#loadmore');
-    const input = el.querySelector('#wall-search');
     let list = [];
     let rendered = 0;
 
@@ -110,13 +106,12 @@ export function homePage({ query }) {
     // 首次渲染
     apply();
 
-    // 即時搜尋（debounce 120ms）
-    let t;
-    input.addEventListener('input', () => {
-      clearTimeout(t);
-      t = setTimeout(() => { state.query = input.value.trim(); apply(); }, 120);
+    // 頂部全域搜尋框：分組下拉（怪物/物品/地圖）可直接跳頁；輸入同步過濾下方圖卡牆
+    mountSearchBox(el.querySelector('#global-search'), {
+      initial: state.query,
+      placeholder: '搜尋怪物、物品或地圖…（例：雙碟、白水、摩登101）',
+      onInput: (v) => { state.query = v; apply(); },
     });
-    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') { clearTimeout(t); state.query = input.value.trim(); apply(); } });
 
     // 等級 chips
     el.querySelector('#lv-chips').addEventListener('click', (e) => {
