@@ -408,8 +408,8 @@
     "艾靈森林：苔蘚東部森林1": { "gms_map_id": 300030000, "confidence": "verified", "source": "name+mob", "gms_name": "Eastern Region of Mossy Tree Forest", "basis": "east(方位權威)；苔蘚蝸牛 foundAt 300030000", "verified_at": "2026-08-13" },
     "艾靈森林：石山入口": { "gms_map_id": 300010400, "confidence": "verified", "source": "name+mob", "gms_name": "Boulder Mountain Entrance", "basis": "boulder+entrance；猿人肥肥(Primitive Boar) foundAt 300010400", "verified_at": "2026-08-13" },
     "艾靈森林：岩石地城入口": { "gms_map_id": null, "confidence": "needs-review", "candidate_gms_map_id": 300020200, "candidate_gms_name": "Mushroom Hill Entrance", "source": "mob", "note": "名稱不明(岩石地城≠Mushroom Hill)；怪證主指向已被占用之 300020100，300020200 為次選；build 不採用" },
-    "艾靈森林：蝴蝶精的森林1": { "gms_map_id": null, "confidence": "needs-review", "candidate_gms_map_id": 300030100, "candidate_gms_name": "Deep Fairy Forest", "source": "name", "note": "改版新圖；v92 Deep Fairy Forest 為舊版單圖、且新怪(光明妖精)無 GMS 橋接，未證實" },
-    "艾靈森林：蝴蝶精的森林2": { "gms_map_id": null, "confidence": "needs-review", "candidate_gms_map_id": null, "source": "name", "note": "改版新圖，v92 無對應之 2 號分圖" },
-    "艾靈森林：岩石山洞穴": { "gms_map_id": null, "confidence": "needs-review", "candidate_gms_map_id": null, "source": "name", "note": "改版新圖(狂暴的猿人肥肥區)，v92 Ellin Forest 無洞穴圖" }
+    "艾靈森林：蝴蝶精的森林1": { "gms_map_id": null, "confidence": "needs-review", "candidate_gms_map_id": 300030200, "candidate_gms_name": "Fairy Forest 1", "candidate_gms_version": 170, "source": "name", "note": "GMS v170(改版後)Fairy Forest 1/2 編號系列對應蝴蝶精的森林1/2；此 id 為 v170 專屬，v92 未收錄故現行 build 不可採用，待 minimap 視覺比對後升級。詳見 docs/ellin_gms_crossref.md" },
+    "艾靈森林：蝴蝶精的森林2": { "gms_map_id": null, "confidence": "needs-review", "candidate_gms_map_id": 300030300, "candidate_gms_name": "Fairy Forest 2", "candidate_gms_version": 170, "source": "name", "note": "同蝴蝶精的森林1；v170 Fairy Forest 2，v92 未收錄" },
+    "艾靈森林：岩石山洞穴": { "gms_map_id": null, "confidence": "needs-review", "candidate_gms_map_id": 300010410, "candidate_gms_name": "Rocky Mountain Cave", "candidate_gms_version": 170, "source": "name", "note": "GMS v170 Rocky Mountain Cave(=岩石山洞穴)；v92 未收錄故現行 build 不可採用" }
   }
 }
