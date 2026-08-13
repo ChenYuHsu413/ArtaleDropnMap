@@ -206,6 +206,10 @@ a:hover { text-decoration: underline; }
   display: inline-block; padding: 1px 8px; border-radius: 6px; font-size: 0.68rem; font-weight: 700;
 }
 .badge-todo { background: color-mix(in srgb, var(--maple-orange) 22%, transparent); color: var(--accent-ink); }
+.badge-boss { background: color-mix(in srgb, #c0392b 26%, transparent); color: #c0392b; border: 1px solid color-mix(in srgb, #c0392b 45%, transparent); }
+:root[data-theme="dark"] .badge-boss { color: #ff8a7a; }
+.mcard .m-respawn { font-size: 0.75rem; color: var(--text-dim); }
+.mcard .m-respawn .k { margin-right: 3px; }
 .mcard .todo-slot { min-height: 16px; }
 
 /* hover / focus 顯示亮點掉落 */

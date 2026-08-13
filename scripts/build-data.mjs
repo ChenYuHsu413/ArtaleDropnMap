@@ -607,6 +607,12 @@ if (patchSummary.unresolved.length) log(`  [warn] patch 對象缺失（key 打�
 const monsterList = Object.values(monsters);
 const missingImages = monsterList.filter((m) => !m.icon).map((m) => m.name).sort();
 log(`[data] 缺圖怪物（占位剪影）: ${missingImages.length}`);
+// 圖卡牆隱藏放寬監測：舊規則(無圖且無掉落)會藏、但新規則因 is_boss 或 drops_note 而顯示者。
+// 供人工把關——若某次 patch 讓此數暴增（>20），代表可能灌入大量僅有註記的殘缺條目，需複查。
+const wallNewlyShown = monsterList
+  .filter((m) => m.drops.length === 0 && m.maps.length === 0 && (m.is_boss || m.drops_note))
+  .map((m) => m.name).sort();
+log(`[data] 圖卡牆放寬新增顯示（is_boss/drops_note）: ${wallNewlyShown.length}${wallNewlyShown.length ? `（${wallNewlyShown.join('、')}）` : ''}${wallNewlyShown.length > 20 ? ' ⚠️ 超過 20，請人工複查' : ''}`);
 // 開放狀態未確認（unknown + 表中未列的新前綴）
 const unknownMapList = Object.values(maps).filter((m) => m.region_status === 'unknown');
 const unknownRegionsPresent = [...new Set(unknownMapList.map((m) => m.region))].sort();
@@ -651,8 +657,10 @@ const gaps = {
     map_gms_override_noop: mapGmsReport.noop,
     map_gms_region_exclusive: mapGmsReport.region_exclusive,
     map_gms_needs_review: mapGmsReport.needs_review,
+    wall_newly_shown: wallNewlyShown.length,
   },
   missing_images: missingImages,
+  wall_newly_shown: wallNewlyShown,
   map_gms_override: mapGmsReport,
   patch_summary: patchSummary,
   patch_report: patchReport,

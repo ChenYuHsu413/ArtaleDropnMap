@@ -115,19 +115,24 @@ export function monsterCard(m) {
   const sprite = url
     ? `<div class="sprite-box"><img class="pixelated" src="${url}" alt="${esc(m.name)}" loading="lazy" onerror="this.style.display='none';this.parentElement.classList.add('placeholder')"></div>`
     : '<div class="sprite-box placeholder" title="缺圖"></div>';
-  // no_drops（如異型雙碟）不算資料待補；只在關閉區域的怪標「區域未開放」
+  // 野王 BOSS 優先標；no_drops（如異型雙碟）與有 drops_note（社群回報）者不算資料待補
   let todo = '';
-  if (m.closed_region_only && !m.drops.length) {
+  if (m.is_boss) {
+    todo = '<span class="badge badge-boss">野王 BOSS</span>';
+  } else if (m.closed_region_only && !m.drops.length) {
     todo = '<span class="badge badge-todo">區域未開放</span>';
-  } else if (!m.maps.length || (!m.drops.length && !m.no_drops)) {
+  } else if (!m.maps.length || (!m.drops.length && !m.no_drops && !m.drops_note)) {
     todo = '<span class="badge badge-todo">資料待補</span>';
   }
+  const respawn = m.respawn ? `<div class="m-respawn"><span class="k">重生</span>${esc(m.respawn)}</div>` : '';
   let dropsHtml = '';
   const drops = m.drops.slice(0, 3).map((id) => getItem(id)).filter(Boolean).map((i) => i.name);
   if (drops.length) {
     dropsHtml = `<div class="drops"><span class="dh">亮點掉落</span>${esc(drops.join('、'))}</div>`;
   } else if (m.no_drops && m.behavior_note) {
     dropsHtml = `<div class="drops"><span class="dh">特殊行為</span>${esc(m.behavior_note)}</div>`;
+  } else if (m.drops_note) {
+    dropsHtml = `<div class="drops"><span class="dh">社群回報</span>掉落待證實（詳見怪物頁）</div>`;
   }
   return `<a class="mcard" href="#/monster/${encodeURIComponent(m.name)}">
     <div class="mwin">
@@ -135,6 +140,7 @@ export function monsterCard(m) {
       <div class="mwin-body">
         ${sprite}
         <div class="m-exp"><span class="k">EXP</span>${fmtStat(m.exp)}</div>
+        ${respawn}
         <div class="todo-slot">${todo}</div>
         ${dropsHtml}
       </div>

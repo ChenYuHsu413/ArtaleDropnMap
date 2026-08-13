@@ -17,7 +17,8 @@ export function homePage({ query }) {
     region: '',
     showAll: false, // 預設隱藏「無掉落且無地圖」的活動/召喚垃圾怪
   };
-  const hasData = (m) => m.drops.length > 0 || m.maps.length > 0;
+  // 顯示條件：野王 BOSS 一律顯示；有出沒圖、有掉落、或有社群回報掉落註記(drops_note)皆算有資訊。
+  const hasData = (m) => m.is_boss || m.maps.length > 0 || m.drops.length > 0 || !!m.drops_note;
 
   const regionOpts = ['<option value="">全部區域</option>']
     .concat(store.regionList.map((r) => `<option value="${esc(r)}">${esc(r)}</option>`))
