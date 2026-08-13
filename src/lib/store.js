@@ -166,8 +166,8 @@ function fmtOne(n) {
 }
 // 陣列（型態一/型態二）兩值並列，如「800 / 700」「5,375萬 / 1,250萬」。
 export const fmtStat = (x) => (Array.isArray(x) ? x.map(fmtOne).join(' / ') : fmtOne(x));
-// 是否為多型態 BOSS（HP 為陣列）或列於 boss_time —— 不參與效率自動推薦。
-export const isBoss = (m) => Array.isArray(m.hp) || !!(store.bossTime && store.bossTime[m.name]);
+// 是否為多型態 BOSS（HP 為陣列）、列於 boss_time、或 patch 明標 is_boss（野王）—— 不參與效率自動推薦。
+export const isBoss = (m) => Array.isArray(m.hp) || !!m.is_boss || !!(store.bossTime && store.bossTime[m.name]);
 
 // mob 頭像 URL（build 已預算 icon：GMS icon > artale png > null）
 export function mobIconUrl(monster) {

@@ -1,4 +1,4 @@
-import { store, getMonster, getItem, getMap, mobIconUrl, itemIconUrl, fmtStat } from '../lib/store.js';
+import { store, getMonster, getItem, getMap, mobIconUrl, itemIconUrl, fmtStat, isBoss } from '../lib/store.js';
 import { esc } from '../lib/ui.js';
 
 const ARTALE = 'https://www.artalemaplestory.com/zh';
@@ -48,8 +48,8 @@ export function monsterPage({ params }) {
 
   const html = `
     <div class="crumbs"><a href="#/">首頁</a> ／ 怪物 ／ ${esc(m.name)}</div>
-    <div class="detail-head">${icon}<div><h1>${esc(m.name)}</h1>
-      <div class="muted">Lv.${m.level}</div></div></div>
+    <div class="detail-head">${icon}<div><h1>${esc(m.name)}${isBoss(m) ? ' <span class="tag badge-warn">野王 BOSS</span>' : ''}</h1>
+      <div class="muted">Lv.${m.level}${m.respawn ? ` ・ 重生 ${esc(m.respawn)}` : ''}</div></div></div>
     <div class="stats">${stats}</div>
 
     <h2 class="section-title">掉落物 ${m.drops.length ? `<span class="pill">${m.drops.length}</span>` : ''}</h2>
