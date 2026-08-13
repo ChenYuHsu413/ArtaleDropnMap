@@ -57,7 +57,9 @@ export function monsterPage({ params }) {
       ? `<div class="rows">${drops}</div>`
       : m.no_drops
         ? `<div class="empty-note">此怪不掉落物品${m.behavior_note ? `——${esc(m.behavior_note)}` : ''}。</div>`
-        : '<div class="empty-note">掉落資料待補。</div>'}
+        : m.drops_note
+          ? `<div class="empty-note">${esc(m.drops_note)}</div>`
+          : '<div class="empty-note">掉落資料待補。</div>'}
 
     <h2 class="section-title">出沒地圖 ${m.maps.length ? `<span class="pill">${m.maps.length}</span>` : ''}</h2>
     ${maps

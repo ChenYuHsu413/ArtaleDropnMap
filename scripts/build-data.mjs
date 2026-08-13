@@ -384,9 +384,18 @@ mapNames.forEach((mapName, i) => {
   scored.push({ mapId, mapName, region, mobSet, bestId, valid, scoreOk, confidence, support, margin, bridgeable: bridgeable.length });
 });
 
-// 驗證通過分數門檻的候選 GMS id 是否真的有 minimap（map list 含無資料的殘缺 id）
-const candidateIds = [...new Set(scored.filter((s) => s.scoreOk).map((s) => s.bestId))];
-log(`[data] 驗證 minimap 可用性: ${candidateIds.length} 個候選 GMS 地圖`);
+// 6b) 人工權威配對來源（data-src/map_gms_ids.json）：投票後覆蓋。
+//     先把要覆蓋的 GMS id 併入 minimap/neighbors 抓取清單，確保覆蓋後衍生資料齊全。
+const mapGmsSrc = readSrc('map_gms_ids.json', { maps: {} });
+const mapGmsEntries = mapGmsSrc.maps || {};
+const GMS_ADOPT = new Set(['verified', 'name-high', 'manual']);
+const overrideFetchIds = [...new Set(
+  Object.values(mapGmsEntries).filter((e) => GMS_ADOPT.has(e.confidence) && e.gms_map_id != null).map((e) => String(e.gms_map_id))
+)];
+
+// 驗證通過分數門檻的候選 GMS id 是否真的有 minimap（map list 含無資料的殘缺 id）；併入人工覆蓋目標 id
+const candidateIds = [...new Set([...scored.filter((s) => s.scoreOk).map((s) => s.bestId), ...overrideFetchIds])];
+log(`[data] 驗證 minimap 可用性: ${candidateIds.length} 個候選 GMS 地圖（含人工覆蓋目標 ${overrideFetchIds.length}）`);
 const mapDetailById = new Map(); // gmsId -> { hasMinimap, neighbors:[gmsId] }
 await pool(candidateIds, async (gmsId) => {
   const d = await fetchJson(`${MSIO}/map/${gmsId}`, `gms_map_${gmsId}`, { optional: true });
@@ -450,6 +459,49 @@ for (const s of scored) {
     });
   }
 }
+
+// 6c) 套用人工權威配對（monster-vote 之後、patch 之前）
+//     adopt(verified/name-high/manual)→覆蓋投票並重算所有 GMS 衍生欄位；
+//     region-exclusive→清空 GMS 配對、不標配對失敗；needs-review→忽略(維持投票)。
+const mapGmsReport = { applied: 0, noop: 0, region_exclusive: 0, needs_review: 0, target_missing: 0, changes: [] };
+function deriveGms(mp, gmsId) {
+  // 依新 id 重算所有 GMS 衍生欄位，不殘留舊 id 資料
+  const gmsMap = gmsMapById.get(String(gmsId)) || null;
+  const detail = mapDetailById.get(String(gmsId)) || null;
+  const hasMinimap = !!(detail && detail.hasMinimap);
+  mp.gms_map_id = String(gmsId);
+  mp.gms_map_name = gmsMap ? gmsMap.name : null;
+  mp.gms_street_name = gmsMap ? gmsMap.streetName : null;
+  mp.gms_has_minimap = hasMinimap;
+  mp.minimap_image = hasMinimap ? `${MSIO}/map/${gmsId}/minimap` : null;
+  mp.gms_neighbors = detail ? detail.neighbors : [];
+}
+for (const [mapName, e] of Object.entries(mapGmsEntries)) {
+  const mapId = mapNameToId.get(mapName);
+  if (!mapId || !maps[mapId]) { mapGmsReport.target_missing++; mapGmsReport.changes.push({ map: mapName, action: 'target_missing' }); continue; }
+  const mp = maps[mapId];
+  if (e.confidence === 'needs-review') { mapGmsReport.needs_review++; continue; }
+  if (e.confidence === 'region-exclusive') {
+    // 清空 GMS 配對（覆蓋任何錯誤投票），標記為區域獨佔而非配對失敗
+    Object.assign(mp, {
+      gms_map_id: null, gms_map_name: null, gms_street_name: null, gms_has_minimap: false,
+      minimap_image: null, gms_neighbors: [], match_confidence: null, match_support: 0, match_margin: null,
+      region_exclusive: true, gms_match_source: 'region-exclusive',
+    });
+    mapGmsReport.region_exclusive++;
+    continue;
+  }
+  if (GMS_ADOPT.has(e.confidence) && e.gms_map_id != null) {
+    const before = mp.gms_map_id;
+    if (String(before) === String(e.gms_map_id)) { mapGmsReport.noop++; mp.gms_match_source = e.confidence; continue; }
+    deriveGms(mp, e.gms_map_id);
+    mp.match_confidence = null; mp.match_margin = null; // 非投票結果，清掉投票信心避免誤讀
+    mp.gms_match_source = e.confidence;
+    mapGmsReport.applied++;
+    mapGmsReport.changes.push({ map: mapName, from: before, to: mp.gms_map_id, gms_name: mp.gms_map_name, minimap: mp.gms_has_minimap, source: e.confidence });
+  }
+}
+log(`[data] 人工權威配對: 覆蓋 ${mapGmsReport.applied}、no-op(與投票同) ${mapGmsReport.noop}、region-exclusive 分流 ${mapGmsReport.region_exclusive}、needs-review 忽略 ${mapGmsReport.needs_review}、對象缺失 ${mapGmsReport.target_missing}`);
 
 // 回填 monsters.maps（存 mapId）
 for (const [mapName, set] of mobsByMapName) {
@@ -595,8 +647,13 @@ const gaps = {
     patches_applied: patchSummary.applied,
     patches_noop: patchSummary.noop,
     patches_target_missing: patchSummary.target_missing,
+    map_gms_override_applied: mapGmsReport.applied,
+    map_gms_override_noop: mapGmsReport.noop,
+    map_gms_region_exclusive: mapGmsReport.region_exclusive,
+    map_gms_needs_review: mapGmsReport.needs_review,
   },
   missing_images: missingImages,
+  map_gms_override: mapGmsReport,
   patch_summary: patchSummary,
   patch_report: patchReport,
   region_unconfirmed: regionUnconfirmed,
@@ -693,6 +750,7 @@ writeJson('items.json', items);
 writeJson('maps.json', maps);
 writeJson('leveling.json', leveling);
 writeJson('map_alias.json', mapAlias);
+writeJson('map_gms_ids.json', mapGmsSrc);
 writeJson('aliases.json', aliasesSrc);
 writeJson('search_index.json', searchDocs);
 writeJson('mob_overrides.json', mobOverrides);

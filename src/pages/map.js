@@ -12,11 +12,16 @@ export function mapPage({ params }) {
       <img src="${mp.minimap_image}" alt="${esc(mp.name)} minimap" loading="lazy"
            onerror="this.parentElement.innerHTML='<span class=muted>地圖預覽載入失敗</span>'">
       <div class="muted" style="font-size:.75rem;margin-top:6px">
-        對應 GMS：${esc(mp.gms_map_name || '')}（信心 ${Math.round((mp.match_confidence || 0) * 100)}%）
+        對應 GMS：${esc(mp.gms_map_name || '')}（${mp.gms_match_source
+          ? '人工校正・' + esc(mp.gms_match_source)
+          : '信心 ' + Math.round((mp.match_confidence || 0) * 100) + '%'}）
       </div>
     </div>`;
   } else {
-    minimap = `<div class="empty-note">地圖預覽待補${mp.gms_map_id ? `（候選 GMS id ${mp.gms_map_id}，信心不足未採用）` : ''}。路徑與相鄰地圖功能規劃於 v2。</div>`;
+    const gmsNote = mp.gms_match_source
+      ? `（對應 GMS：${esc(mp.gms_map_name || mp.gms_map_id)}・人工校正，惟此版本無 minimap 圖）`
+      : mp.gms_map_id ? `（候選 GMS id ${mp.gms_map_id}，信心不足未採用）` : '';
+    minimap = `<div class="empty-note">地圖預覽待補${gmsNote}。路徑與相鄰地圖功能規劃於 v2。</div>`;
   }
 
   // 怪物清單（依等級排序，帶掉落亮點）
