@@ -477,10 +477,12 @@ function deriveGms(mp, gmsId) {
   mp.gms_neighbors = detail ? detail.neighbors : [];
 }
 for (const [mapName, e] of Object.entries(mapGmsEntries)) {
+  // needs-review 一律忽略（維持投票），不因對象未存在而誤報 target_missing
+  // （注意：patch 於本層之後才建圖，故 patch 新建圖無法由本層採用；需採用時應改走 patch）
+  if (e.confidence === 'needs-review') { mapGmsReport.needs_review++; continue; }
   const mapId = mapNameToId.get(mapName);
   if (!mapId || !maps[mapId]) { mapGmsReport.target_missing++; mapGmsReport.changes.push({ map: mapName, action: 'target_missing' }); continue; }
   const mp = maps[mapId];
-  if (e.confidence === 'needs-review') { mapGmsReport.needs_review++; continue; }
   if (e.confidence === 'region-exclusive') {
     // 清空 GMS 配對（覆蓋任何錯誤投票），標記為區域獨佔而非配對失敗
     Object.assign(mp, {
@@ -631,6 +633,11 @@ log(`[data] 區域開放未確認: ${unknownRegionsPresent.length} 區、${unkno
 const gaps = {
   generated_at_note: '由 build-data.mjs 產出；日期見檔案 mtime',
   gms_version: GMS_VERSION,
+  // 人工研究備註（待證實線索，不入結構化資料/patch）
+  research_notes: [
+    { subject: '碴烏（艾靈森林野王）', note: '出沒位置線索：岩石山洞穴／洞穴深處（韓方劇情推論，待證實）。暫不掛出沒關聯、不入 patch。' },
+    { subject: '艾靈森林新怪 GMS 交叉驗證', note: 'GMS v92 僅收原版艾靈森林(Mossy Mushroom/Stone Bug/Primitive Boar)；光明妖精(Shining Fairy)、遠古妖精(Ancient Fairy)、狂暴的猿人肥肥(Rampaging Primitive Boar)、碴烏(Chao)為改版後怪物，v92 未收錄，HP/EXP/掉落無法以 v92 交叉驗證。' },
+  ],
   summary: {
     monsters_total: monsterList.length,
     monsters_missing_drops: monsterList.filter((m) => m.drops.length === 0).length,

@@ -398,6 +398,18 @@
       "confidence": "region-exclusive",
       "source": "manual",
       "note": "區域獨佔(如台灣獨佔),GMS 無對應"
-    }
+    },
+    "艾靈森林：苔蘚森林入口": { "gms_map_id": 300010000, "confidence": "verified", "source": "name+mob", "gms_name": "Mossy Tree Forest Entrance", "basis": "moss+forest+entrance；苔蘚蝸牛 foundAt 300010000", "verified_at": "2026-08-13" },
+    "艾靈森林：苔蘚西部森林1": { "gms_map_id": 300010100, "confidence": "verified", "source": "name+mob", "gms_name": "Western Region of Mossy Tree Forest 1", "basis": "west+num1；怪證 2/2", "verified_at": "2026-08-13" },
+    "艾靈森林：苔蘚西部森林2": { "gms_map_id": 300010200, "confidence": "verified", "source": "name+mob", "gms_name": "Western Region of Mossy Tree Forest 2", "basis": "west+num2(編號權威)；遠古木妖 foundAt 300010200", "verified_at": "2026-08-13" },
+    "艾靈森林：苔蘚森林小徑": { "gms_map_id": 300010300, "confidence": "verified", "source": "name+mob", "gms_name": "Mossy Tree Forest Trail", "basis": "moss+forest+trail；怪證 2/2", "verified_at": "2026-08-13" },
+    "艾靈森林：苔蘚南部森林1": { "gms_map_id": 300020000, "confidence": "verified", "source": "name+mob", "gms_name": "Souther Region of Mossy Tree Forest 1", "basis": "south+num1(方位權威)；石蟲 foundAt 300020000", "verified_at": "2026-08-13" },
+    "艾靈森林：苔蘚南部森林2": { "gms_map_id": 300020100, "confidence": "verified", "source": "name+mob", "gms_name": "Southern Region of Mossy Tree Forest 2", "basis": "south+num2；怪證 2/2", "verified_at": "2026-08-13" },
+    "艾靈森林：苔蘚東部森林1": { "gms_map_id": 300030000, "confidence": "verified", "source": "name+mob", "gms_name": "Eastern Region of Mossy Tree Forest", "basis": "east(方位權威)；苔蘚蝸牛 foundAt 300030000", "verified_at": "2026-08-13" },
+    "艾靈森林：石山入口": { "gms_map_id": 300010400, "confidence": "verified", "source": "name+mob", "gms_name": "Boulder Mountain Entrance", "basis": "boulder+entrance；猿人肥肥(Primitive Boar) foundAt 300010400", "verified_at": "2026-08-13" },
+    "艾靈森林：岩石地城入口": { "gms_map_id": null, "confidence": "needs-review", "candidate_gms_map_id": 300020200, "candidate_gms_name": "Mushroom Hill Entrance", "source": "mob", "note": "名稱不明(岩石地城≠Mushroom Hill)；怪證主指向已被占用之 300020100，300020200 為次選；build 不採用" },
+    "艾靈森林：蝴蝶精的森林1": { "gms_map_id": null, "confidence": "needs-review", "candidate_gms_map_id": 300030100, "candidate_gms_name": "Deep Fairy Forest", "source": "name", "note": "改版新圖；v92 Deep Fairy Forest 為舊版單圖、且新怪(光明妖精)無 GMS 橋接，未證實" },
+    "艾靈森林：蝴蝶精的森林2": { "gms_map_id": null, "confidence": "needs-review", "candidate_gms_map_id": null, "source": "name", "note": "改版新圖，v92 無對應之 2 號分圖" },
+    "艾靈森林：岩石山洞穴": { "gms_map_id": null, "confidence": "needs-review", "candidate_gms_map_id": null, "source": "name", "note": "改版新圖(狂暴的猿人肥肥區)，v92 Ellin Forest 無洞穴圖" }
   }
 }

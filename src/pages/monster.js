@@ -51,6 +51,7 @@ export function monsterPage({ params }) {
     <div class="detail-head">${icon}<div><h1>${esc(m.name)}${isBoss(m) ? ' <span class="tag badge-warn">野王 BOSS</span>' : ''}</h1>
       <div class="muted">Lv.${m.level}${m.respawn ? ` ・ 重生 ${esc(m.respawn)}` : ''}</div></div></div>
     <div class="stats">${stats}</div>
+    ${m.behavior_note && !m.no_drops ? `<div class="empty-note"><strong>行為</strong>：${esc(m.behavior_note)}</div>` : ''}
 
     <h2 class="section-title">掉落物 ${m.drops.length ? `<span class="pill">${m.drops.length}</span>` : ''}</h2>
     ${drops
