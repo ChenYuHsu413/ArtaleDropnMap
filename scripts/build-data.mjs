@@ -633,10 +633,13 @@ log(`[data] 區域開放未確認: ${unknownRegionsPresent.length} 區、${unkno
 const gaps = {
   generated_at_note: '由 build-data.mjs 產出；日期見檔案 mtime',
   gms_version: GMS_VERSION,
-  // 人工研究備註（待證實線索，不入結構化資料/patch）
+  // 人工研究備註（待證實線索，不入結構化資料/patch）。
+  // 資料驗證採 Artale-only 原則：數值/掉落/行為僅以 Artale 自身來源為準；
+  // 非 Artale 版本（GMS/韓服/Mapleland/MSM…）僅能當線索，須 Artale 證實。
   research_notes: [
-    { subject: '碴烏（艾靈森林野王）', note: '出沒位置線索：岩石山洞穴／洞穴深處（韓方劇情推論，待證實）。暫不掛出沒關聯、不入 patch。' },
-    { subject: '艾靈森林新怪 GMS 交叉驗證', note: 'GMS v92 僅收原版艾靈森林(Mossy Mushroom/Stone Bug/Primitive Boar)；光明妖精(Shining Fairy)、遠古妖精(Ancient Fairy)、狂暴的猿人肥肥(Rampaging Primitive Boar)、碴烏(Chao)為改版後怪物，v92 未收錄，HP/EXP/掉落無法以 v92 交叉驗證。' },
+    { subject: '光明妖精／遠古妖精 行為描述', note: '原 behavior_note 來源為韓服 wiki，違反 Artale-only 原則已移除；行為描述待 Artale 玩家實測補入。' },
+    { subject: '碴烏（艾靈森林野王）位置', note: '【非 Artale 來源，僅線索、待 Artale 證實】岩石山洞穴／洞穴深處（韓方劇情推論）。暫不掛出沒關聯、不入 patch。' },
+    { subject: '碴烏／艾靈妖精 等級與數值', note: '【非 Artale 來源，僅線索、待 Artale 證實】跨版本(GMS)數值比對曾推得等級等值，依 Artale-only 原則不作為驗證/填值依據；碴烏等級改回未載(0)待 Artale 實測。歷史比對見 docs/ellin_gms_crossref.md（已標 DEPRECATED）。' },
   ],
   summary: {
     monsters_total: monsterList.length,

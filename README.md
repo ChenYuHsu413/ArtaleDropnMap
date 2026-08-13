@@ -46,9 +46,16 @@ npm run build    # 產出 dist/（可直接丟 GitHub Pages）
 
 ---
 
+## 資料來源與驗證原則（Artale-only）
+
+> **Artale 為魔改版本。怪物數值、掉落、行為等「遊戲資料」一律只以 Artale 自身來源為準**——遊戲內實測、巴哈姆特 Artale 板、[artalemaplestory.com](https://www.artalemaplestory.com/zh)、官方公告。
+> **GMS／韓服本服／Mapleland／MSM 等其他版本的資料，不得作為驗證或填值依據**（連「孤證解除」「首發官方值」這類跨版本比對結論都不算數；未經 Artale 證實者一律標記為待實測線索）。
+>
+> **唯一例外**：`minimap` 等**地圖圖像資源**仍經 GMS（[maplestory.io](https://maplestory.io)）取得；`data-src/map_gms_ids.json` 配對層**僅服務地圖圖像對應，不涉及任何遊戲數值**。怪物頭像（icon）同屬圖像資源例外。
+
 ## 資料管線（`scripts/build-data.mjs`）
 
-來源：[a2983456456/artale-drop](https://github.com/a2983456456/artale-drop) 的公開 JSON + [maplestory.io](https://maplestory.io) API。**全部 build time 抓取清洗，前端不 runtime 依賴外站**（唯一例外：怪物頭像 / minimap 圖片走 maplestory.io CDN）。
+來源：[a2983456456/artale-drop](https://github.com/a2983456456/artale-drop) 的公開 JSON（Artale 社群資料）+ [maplestory.io](https://maplestory.io) API（**僅圖像**：頭像／minimap，及地圖配對橋接）。**全部 build time 抓取清洗，前端不 runtime 依賴外站**（唯一例外：怪物頭像 / minimap 圖片走 maplestory.io CDN）。
 
 已處理的來源問題：
 
