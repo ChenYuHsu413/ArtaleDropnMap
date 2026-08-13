@@ -1,8 +1,6 @@
 import { store, getItem, getMonster, getMap, itemIconUrl } from '../lib/store.js';
 import { monsterRow, esc } from '../lib/ui.js';
 
-const ARTALE = 'https://www.artalemaplestory.com/zh';
-
 function levelingMapNames() {
   return new Set(store.leveling.map((r) => r.map_name));
 }
@@ -45,9 +43,7 @@ export function itemPage({ params }) {
 
     <h2 class="section-title">哪些怪會掉 ${it.dropped_by.length ? `<span class="pill">${it.dropped_by.length}</span>` : ''}</h2>
     ${blocks ? `<div class="rows">${blocks}</div>` : '<div class="empty-note">掉落來源資料待補。</div>'}
-    <p class="muted" style="font-size:.8rem;margin-top:10px">★ 標記＝人工精選推薦刷圖。</p>
-
-    <p style="margin-top:22px"><a class="link-out" href="${ARTALE}" target="_blank" rel="noopener">查看完整資料（artalemaplestory）↗</a></p>`;
+    <p class="muted" style="font-size:.8rem;margin-top:10px">★ 標記＝人工精選推薦刷圖。</p>`;
 
   return { html };
 }

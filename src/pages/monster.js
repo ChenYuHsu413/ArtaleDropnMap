@@ -1,8 +1,6 @@
 import { store, getMonster, getItem, getMap, mobIconUrl, itemIconUrl, fmtStat, isBoss } from '../lib/store.js';
 import { esc } from '../lib/ui.js';
 
-const ARTALE = 'https://www.artalemaplestory.com/zh';
-
 function levelingMapNames() {
   return new Set(store.leveling.map((r) => r.map_name));
 }
@@ -67,9 +65,7 @@ export function monsterPage({ params }) {
       ? `<div class="rows">${maps}</div>`
       : m.closed_region_only
         ? '<div class="empty-note">所在區域未開放——此怪僅出沒於目前關閉的區域或活動地圖，暫無可前往的地圖。</div>'
-        : '<div class="empty-note">出沒地圖資料待補。</div>'}
-
-    <p style="margin-top:26px"><a class="link-out" href="${ARTALE}" target="_blank" rel="noopener">查看完整資料（artalemaplestory）↗</a></p>`;
+        : '<div class="empty-note">出沒地圖資料待補。</div>'}`;
 
   return { html };
 }

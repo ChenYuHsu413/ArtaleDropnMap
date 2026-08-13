@@ -7,7 +7,7 @@
 1. **瀏覽 / 找東西** — 首頁即怪物圖卡牆，打字即時篩選（fuzzy + 異體字 + 別名），點卡看掉落與刷圖。
 2. **我要練等** — 右上「練等」入口，輸入等級 → 推薦練功地圖。
 
-深度資料一律外連到 [artalemaplestory.com](https://www.artalemaplestory.com/zh)。純靜態站，可直接部署到 GitHub Pages。
+純靜態站，可直接部署到 GitHub Pages。（歷史淵源：本站早期以 artalemaplestory.com 作深度資料外連，該站現已自可信來源移除、站內外連亦已移除，改採韓方 Artale 社群來源，見下方「資料來源與驗證原則」。）
 
 技術：Vite + vanilla JS（無框架，JS gzip ~20KB）、Fuse.js 模糊搜尋、hash 路由（GH Pages 子路徑安全）、RWD + 深色模式。
 
@@ -48,8 +48,16 @@ npm run build    # 產出 dist/（可直接丟 GitHub Pages）
 
 ## 資料來源與驗證原則（Artale-only）
 
-> **Artale 為魔改版本。怪物數值、掉落、行為等「遊戲資料」一律只以 Artale 自身來源為準**——遊戲內實測、巴哈姆特 Artale 板、[artalemaplestory.com](https://www.artalemaplestory.com/zh)、官方公告。
-> **GMS／韓服本服／Mapleland／MSM 等其他版本的資料，不得作為驗證或填值依據**（連「孤證解除」「首發官方值」這類跨版本比對結論都不算數；未經 Artale 證實者一律標記為待實測線索）。
+> **Artale 為魔改版本，且為韓方原生世界。** 怪物數值、掉落、行為等「遊戲資料」一律只以 **Artale 自身來源**為準：
+> - 遊戲內實測
+> - 巴哈姆特 Artale 板
+> - **[artaledb.com](https://artaledb.com)**（韓方社群資料庫，前身為 artale.one 官方社群置頂試算表）
+> - **artale.one 官方社群**
+> - **Artale 官方公告**
+>
+> 韓文社群資料屬「**同一款遊戲的第一手來源**」，可信。
+> **GMS／韓服本服（KMS）／Mapleland／MSM 等其他版本的資料，不得作為驗證或填值依據**（連「孤證解除」「首發官方值」這類跨版本比對結論都不算數；未經 Artale 證實者一律標記為待實測線索）。
+> **⚠️ `artalemaplestory.com` 已自可信來源移除**（來源存疑），並已**移除站內所有外連**（怪物/物品頁「查看完整資料」按鈕、頁尾）——不再由站內導流背書；本 README 僅保留歷史淵源紀錄。
 >
 > **唯一例外**：`minimap` 等**地圖圖像資源**仍經 GMS（[maplestory.io](https://maplestory.io)）取得；`data-src/map_gms_ids.json` 配對層**僅服務地圖圖像對應，不涉及任何遊戲數值**。怪物頭像（icon）同屬圖像資源例外。
 

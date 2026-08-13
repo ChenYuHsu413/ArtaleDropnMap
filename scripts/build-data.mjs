@@ -641,6 +641,19 @@ const gaps = {
     { subject: '碴烏（艾靈森林野王）位置', note: '【非 Artale 來源，僅線索、待 Artale 證實】岩石山洞穴／洞穴深處（韓方劇情推論）。暫不掛出沒關聯、不入 patch。' },
     { subject: '碴烏／艾靈妖精 等級與數值', note: '【非 Artale 來源，僅線索、待 Artale 證實】跨版本(GMS)數值比對曾推得等級等值，依 Artale-only 原則不作為驗證/填值依據；碴烏等級改回未載(0)待 Artale 實測。歷史比對見 docs/ellin_gms_crossref.md（已標 DEPRECATED）。' },
   ],
+  // 待補來源（人工待辦，不做定期自動抓取）
+  pending_sources: [
+    {
+      subject: '艾靈森林(6/25 新開)新怪掉落／數值',
+      monsters: ['光明妖精', '遠古妖精', '狂暴的猿人肥肥', '碴烏', '艾畢奈亞(尚未收錄)'],
+      status: 'pending',
+      current_state: '新怪掉落維持 drops=[] + 巴哈社群 drops_note；HP/EXP 為巴哈社群值。',
+      note: '待 artaledb.com（韓方 Artale 資料庫）收錄엘린숲(艾靈森林)新區後 ingest 掉落表與數值。'
+        + '2026-08 檢查：artaledb 的 monster_data.json / boss_data.json 尚無此批（엘린숲 僅舊版 5 怪 LV42–57）。'
+        + '備援路徑：artale.one 官方 Google 試算表以 gviz 讀取（`/gviz/tq?tqx=out:json&gid=<gid>`），'
+        + '海外旅行分頁 gid=233892238 已證實此法可讀，屆時找엘린숲分頁的 gid。人工想到再看即可，不做定期自動檢查。',
+    },
+  ],
   summary: {
     monsters_total: monsterList.length,
     monsters_missing_drops: monsterList.filter((m) => m.drops.length === 0).length,
