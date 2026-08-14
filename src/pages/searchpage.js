@@ -17,7 +17,7 @@ function resultRow(d) {
     return `<a class="row" href="#/monster/${encodeURIComponent(d.key)}">
       ${img}
       <span class="grow"><span class="name">${esc(m.name)}</span>
-        <div class="meta">怪物 ・ Lv.${m.level} ・ 經驗 ${fmtStat(m.exp)}${m.drops.length ? '' : ' ・ <span class="badge-warn tag">掉落待補</span>'}</div></span>
+        <div class="meta">怪物 ・ Lv.${m.level || '?'} ・ 經驗 ${fmtStat(m.exp)}${m.drops.length ? '' : ' ・ <span class="badge-warn tag">掉落待補</span>'}</div></span>
     </a>`;
   }
   const it = getItem(d.key);

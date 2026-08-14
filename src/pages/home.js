@@ -69,7 +69,7 @@ export function homePage({ query }) {
         monsters = monsters.filter(hasData);
         hidden = before - monsters.length;
       }
-      if (!state.query) monsters.sort((a, b) => a.level - b.level || a.name.localeCompare(b.name, 'zh-Hant'));
+      if (!state.query) monsters.sort((a, b) => (a.level||1e9) - (b.level||1e9) || a.name.localeCompare(b.name, 'zh-Hant'));
       return { monsters, others, hidden };
     }
 

@@ -15,7 +15,7 @@ export function monsterPage({ params }) {
     : '<span class="silhouette" style="width:64px;height:64px;display:inline-block"></span>';
 
   const stats = [
-    ['等級', m.level], ['HP', m.hp], ['MP', m.mp], ['經驗', m.exp],
+    ['等級', m.level || '?'], ['HP', m.hp], ['MP', m.mp], ['經驗', m.exp],
     ['命中需求', m.accuracy_required], ['迴避', m.evasion], ['物防', m.pdef], ['魔防', m.mdef],
   ].map(([k, v]) => `<div class="stat"><div class="k">${k}</div><div class="v">${fmtStat(v)}</div></div>`).join('');
 
@@ -47,7 +47,7 @@ export function monsterPage({ params }) {
   const html = `
     <div class="crumbs"><a href="#/">首頁</a> ／ 怪物 ／ ${esc(m.name)}</div>
     <div class="detail-head">${icon}<div><h1>${esc(m.name)}${isBoss(m) ? ' <span class="tag badge-warn">野王 BOSS</span>' : ''}</h1>
-      <div class="muted">Lv.${m.level}${m.respawn ? ` ・ 重生 ${esc(m.respawn)}` : ''}</div></div></div>
+      <div class="muted">Lv.${m.level || '?'}${m.respawn ? ` ・ 重生 ${esc(m.respawn)}` : ''}</div></div></div>
     <div class="stats">${stats}</div>
     ${m.behavior_note && !m.no_drops ? `<div class="empty-note"><strong>行為</strong>：${esc(m.behavior_note)}</div>` : ''}
 

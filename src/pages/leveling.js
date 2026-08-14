@@ -10,7 +10,7 @@ function mobAvatars(names) {
       const img = url
         ? `<img src="${url}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`
         : '👾';
-      return `<span class="mob-avatar">${img}${esc(n)} <span class="muted">Lv.${m.level}·${fmtStat(m.exp)}exp</span></span>`;
+      return `<span class="mob-avatar">${img}${esc(n)} <span class="muted">Lv.${m.level || '?'}·${fmtStat(m.exp)}exp</span></span>`;
     })
     .join('');
 }

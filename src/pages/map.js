@@ -36,7 +36,7 @@ export function mapPage({ params }) {
       return `<a class="row" href="#/monster/${encodeURIComponent(m.name)}">
         ${img}
         <span class="grow"><span class="name">${esc(m.name)}</span>
-          <div class="meta">Lv.${m.level} ・ 經驗 ${fmtStat(m.exp)} ・ HP ${fmtStat(m.hp)}${topDrops.length ? ' ・ 掉 ' + esc(topDrops.join('、')) : ''}</div></span>
+          <div class="meta">Lv.${m.level || '?'} ・ 經驗 ${fmtStat(m.exp)} ・ HP ${fmtStat(m.hp)}${topDrops.length ? ' ・ 掉 ' + esc(topDrops.join('、')) : ''}</div></span>
       </a>`;
     }).join('');
 

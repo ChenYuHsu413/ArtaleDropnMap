@@ -28,7 +28,7 @@ function gotoDoc(doc) {
 
 const GROUP_LABEL = { monster: '怪物', item: '物品', map: '地圖' };
 function docMeta(d) {
-  if (d.type === 'monster') return `Lv.${d.level ?? '?'}`;
+  if (d.type === 'monster') return `Lv.${d.level || '?'}`;
   if (d.type === 'map') return esc(d.region || '');
   return d.dropCount ? `${d.dropCount} 怪掉落` : '';
 }
@@ -136,7 +136,7 @@ export function monsterCard(m) {
   }
   return `<a class="mcard" href="#/monster/${encodeURIComponent(m.name)}">
     <div class="mwin">
-      <div class="mwin-title"><span class="t-name">${esc(m.name)}</span><span class="t-lv pixel">Lv.${m.level}</span></div>
+      <div class="mwin-title"><span class="t-name">${esc(m.name)}</span><span class="t-lv pixel">Lv.${m.level || '?'}</span></div>
       <div class="mwin-body">
         ${sprite}
         <div class="m-exp"><span class="k">EXP</span>${fmtStat(m.exp)}</div>
@@ -157,6 +157,6 @@ export function monsterRow(m, extra = '') {
   return `<a class="row" href="#/monster/${encodeURIComponent(m.name)}">
     ${img}
     <span class="grow"><span class="name">${esc(m.name)}</span>
-      <div class="meta">Lv.${m.level} ・ 經驗 ${fmtStat(m.exp)} ・ HP ${fmtStat(m.hp)}${extra}</div></span>
+      <div class="meta">Lv.${m.level || '?'} ・ 經驗 ${fmtStat(m.exp)} ・ HP ${fmtStat(m.hp)}${extra}</div></span>
   </a>`;
 }

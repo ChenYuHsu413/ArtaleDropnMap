@@ -1,0 +1,144 @@
+# map_gms_ids 前150擴充：新增詞彙表（可稽核）
+
+沿用試點詞彙表，本批新增 140 條：
+
+- 樹木→tree
+- 樹→tree
+- 洞穴→cave
+- 洞窟→cave
+- 洞→cave
+- 地城→dungeon
+- 地下→underground
+- 神殿→temple
+- 神廟→temple
+- 廣場→square
+- 街道→street
+- 街→street
+- 城→castle
+- 村→town
+- 港→harbor
+- 碼頭→dock
+- 海灘→beach
+- 深海→deep sea
+- 海→sea
+- 沼澤→swamp
+- 沙漠→desert
+- 雪→snow
+- 冰原→ice
+- 岩石→rock
+- 山→mountain
+- 谷→valley
+- 草原→field
+- 遺跡→ruins
+- 墓→tomb
+- 出口→exit
+- 內部→inside
+- 深處→deep
+- 中央→center
+- 盡頭→end
+- 通道→passage
+- 地帶→area
+- 區域→region
+- 小徑→trail
+- 道路→road
+- 橋→bridge
+- 隧道→tunnel
+- 湖→lake
+- 玩具→toy
+- 工廠→factory
+- 齒輪→gear
+- 發條→clock
+- 時鐘→clock
+- 鐘塔→clocktower
+- 積木→toy
+- 布偶→doll
+- 絨毛→plush
+- 機器→machine
+- 傳送→warp
+- 珊瑚→coral
+- 水→water
+- 魚→fish
+- 海草→seaweed
+- 海底→sea
+- 泡泡→bubble
+- 海溝→trench
+- 雪原→snowfield
+- 冰洞→ice
+- 寒→cold
+- 雪山→snow
+- 螞蟻→ant
+- 蟻→ant
+- 豬→pig
+- 幽靈→ghost
+- 蘑菇→mushroom
+- 南方→south
+- 北方→north
+- 東部→east
+- 西部→west
+- 南部→south
+- 北部→north
+- 郊外→outskirt
+- 墓地→cemetery
+- 雲彩→cloud
+- 雲→cloud
+- 散步→walkway
+- 三色→3 colors
+- 武陵→mu lung
+- 桃花→peach
+- 修行→training
+- 山脈→mountain
+- 彩虹→rainbow
+- 蘑菇城→mushroom
+- 菇菇森林→mushroom forest
+- 絕壁→cliff
+- 巨人→golem
+- 妖怪→goblin
+- 軍營→camp
+- 螞蟻洞→ant tunnel
+- 幽深→deep
+- 狼→wolf
+- 蛇→snake
+- 熊→bear
+- 亡者→dead
+- 濃霧→foggy
+- 迷霧→foggy
+- 龍族→drake
+- 魔龍→drake
+- 巫婆→evil
+- 圓桌→round table
+- 研究所→lab
+- 時間→time
+- 之路→path
+- 遺忘→forgotten
+- 扭曲→warped
+- 泥沼→swamp
+- 猴子→monkey
+- 階梯→stairway
+- 搖籃→cradle
+- 藥草→herb
+- 記憶→memory
+- 耐心→patience
+- 忍耐→patience
+- 寺院→sanctuary
+- 詛咒→cursed
+- 受難→wrecked
+- 沉船→wrecked ship
+- 墓地→grave
+- 鱷魚→croko
+- 尖銳→sharp
+- 冷→cold
+- 寒冰→cold
+- 池塘→pond
+- 池→pond
+- 泉→corner
+- 愛奧斯塔→eos tower
+- 樓→floor
+- 弓箭手→henesys
+- 小山→hill
+- 遺跡→remains
+- 雪人→snowman
+- 冰雪→ice
+- 海峽→sea gorge
+- 海溝→gorge
+- 發掘地→excavation
+- 挖掘→excavation
