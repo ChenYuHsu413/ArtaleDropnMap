@@ -1,6 +1,21 @@
 import { store, getMap, getMonster, getItem, mobIconUrl, fmtStat } from '../lib/store.js';
 import { esc } from '../lib/ui.js';
 
+// 「怎麼走」渲染：新分段式 segments[{map,action}] 優先，退回舊 steps[]；皆附來源連結。
+function routeHtml(route) {
+  if (!route) return '<div class="empty-note">尚無走法資料。列入「待實測」清單，依 Artale 攻略/官方公告補上（寧缺勿錯）。</div>';
+  const src = route.source_url ? `<p class="muted" style="font-size:.78rem"><a href="${esc(route.source_url)}" target="_blank" rel="noopener">路線來源 ↗</a></p>` : '';
+  if (route.segments && route.segments.length) {
+    const head = route.from ? `<p class="route-head muted">${esc(route.from)} → ${esc(route.to || '')}</p>` : '';
+    const segs = route.segments.map((s) => `<li><span class="route-map">${esc(s.map || '')}</span><span class="route-action">${esc(s.action || '')}</span></li>`).join('');
+    return `${head}<ol class="route-steps route-segments">${segs}</ol>${src}`;
+  }
+  if (route.steps && route.steps.length) {
+    return `<ol class="route-steps">${route.steps.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>${src}`;
+  }
+  return '<div class="empty-note">尚無走法資料。</div>';
+}
+
 export function mapPage({ params }) {
   const mp = getMap(params.id);
   if (!mp) return { html: `<div class="crumbs"><a href="#/">首頁</a></div><div class="empty-note">查無此地圖。</div>` };
@@ -56,10 +71,7 @@ export function mapPage({ params }) {
     ${minimap}
 
     <h2 class="section-title">怎麼走</h2>
-    ${mp.route
-      ? `<ol class="route-steps">${mp.route.steps.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>
-         ${mp.route.source_url ? `<p class="muted" style="font-size:.78rem"><a href="${esc(mp.route.source_url)}" target="_blank" rel="noopener">路線來源 ↗</a></p>` : ''}`
-      : '<div class="empty-note">尚無走法資料。自動路徑（相鄰麵包屑）規劃於 v2；已保留 GMS map id 與相鄰結構。</div>'}
+    ${routeHtml(mp.route)}
 
     <h2 class="section-title">這張圖的怪物 ${mp.mobs.length ? `<span class="pill">${mp.mobs.length}</span>` : ''}</h2>
     ${mobs ? `<div class="rows">${mobs}</div>` : '<div class="empty-note">怪物資料待補。</div>'}

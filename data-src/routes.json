@@ -1,5 +1,5 @@
 {
-  "_readme": "人工維護的地圖走法路線。v2 地圖頁「怎麼走」功能的資料來源，不依賴 GMS 相鄰資料。",
+  "_readme": "人工維護的地圖走法路線。Artale-only 來源政策：只收 (a) 巴哈 Artale 板攻略/官方公告（source_url 標連結）或 (b) 玩家遊戲內實測（source_url 標「玩家實測 <日期>」）；聚合站（vocus/pcucgame 等）永久排除；不以原版楓之谷記憶臆測傳點；圖名對不上既有地圖實體者回報、不猜。支援兩格式：新分段式 { from, to, segments:[{map,action}], source_url }（to 精確比對）與舊式 { destination|dest_maps_prefix, steps:[], source_url }（沿用）。待供料清單見 docs/routes_pending.md（寧缺勿錯）。",
   "routes": [
     {
       "destination": "摩登101（台北101）",
@@ -13,11 +13,12 @@
       "source_url": "https://forum.gamer.com.tw/Co.php?bsn=79354&sn=47513"
     },
     {
-      "destination": "隱密之地：猴子沼澤地Ⅲ",
-      "steps": [
-        "從奇幻村出發",
-        "經墮落城市前往猴子沼澤地",
-        "注意：路上有機率遇到野王，可能直接損失經驗"
+      "from": "奇幻村",
+      "to": "隱密之地：猴子沼澤地Ⅲ",
+      "segments": [
+        { "map": "奇幻村", "action": "從奇幻村出發" },
+        { "map": "墮落城市", "action": "經墮落城市前往猴子沼澤地" },
+        { "map": "隱密之地：猴子沼澤地", "action": "注意：路上有機率遇到野王，可能直接損失經驗" }
       ],
       "source_url": "https://forum.gamer.com.tw/C.php?bsn=79354&snA=578"
     }

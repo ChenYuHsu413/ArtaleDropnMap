@@ -406,11 +406,14 @@ await pool(candidateIds, async (gmsId) => {
   mapDetailById.set(gmsId, { hasMinimap, neighbors });
 });
 
-// 路線走法（人工維護於 data-src/routes.json）：destination 精確或 dest_maps_prefix 前綴匹配
+// 路線走法（人工維護於 data-src/routes.json）：
+//   新分段式 { from, to, segments:[{map,action}], source_url }（to 精確比對）
+//   舊式 { destination|dest_maps_prefix, steps:[...], source_url }（沿用、不破壞）
 const routesSrc = readSrc('routes.json', { routes: [] });
 const routeList = routesSrc.routes || [];
 function matchRoute(mapName) {
   for (const r of routeList) {
+    if (r.to && r.to === mapName) return r;
     if (r.destination && r.destination === mapName) return r;
     if (r.dest_maps_prefix && mapName.startsWith(r.dest_maps_prefix)) return r;
   }
@@ -443,7 +446,7 @@ for (const s of scored) {
     // v1：分數達標且該 GMS 地圖確實有 minimap 才給圖
     minimap_image: hasMinimap ? `${MSIO}/map/${s.bestId}/minimap` : null,
     // 「怎麼走」步驟（人工路線），無則 null
-    route: route ? { steps: route.steps, source_url: route.source_url } : null,
+    route: route ? { from: route.from || null, to: route.to || null, segments: route.segments || null, steps: route.steps || null, source_url: route.source_url } : null,
     neighbors: [], // v1 留空（本站 map id）；v2 由下方 gms_neighbors 反查填入
     gms_neighbors: detail ? detail.neighbors : [], // 原始 GMS 相鄰 id，供 v2 沿用
   };

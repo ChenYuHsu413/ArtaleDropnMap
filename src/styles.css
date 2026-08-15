@@ -301,6 +301,13 @@ a:hover { text-decoration: underline; }
 .minimap-wrap img { max-width: 100%; height: auto; }
 .route-steps { margin: 0; padding: 14px 16px 14px 34px; background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius); line-height: 1.9; }
 .route-steps li { margin: 2px 0; }
+.route-head { margin: 0 0 8px; font-weight: 700; }
+.route-segments li { margin: 6px 0; }
+.route-segments .route-map { display: inline-block; font-weight: 700; color: var(--accent-ink); margin-right: 8px; }
+.route-segments .route-action { color: var(--text); }
+:root[data-theme="dark"] .route-segments .route-map { color: var(--maple-orange); }
+.route-btn { background: var(--leaf-green, #6aa84f); color: #10240a; border: 1px solid var(--accent-ink); }
+@media (max-width: 480px) { .route-segments .route-map { display: block; margin-bottom: 2px; } }
 .link-out { font-size: 0.88rem; }
 .highlight-map { border-color: var(--maple-orange) !important; box-shadow: 0 0 0 1px var(--maple-orange) inset; }
 .rec-flag { color: var(--good); font-weight: 700; font-size: 0.8rem; }

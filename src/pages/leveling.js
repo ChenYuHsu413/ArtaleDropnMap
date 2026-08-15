@@ -45,6 +45,7 @@ function curatedCard(rec) {
   if (!noMapLink) {
     const mapRec = getMapByName(rec.map_name);
     if (mapRec) mapBtns += `<a class="btn btn-ghost" href="#/map/${mapRec.id}">查看地圖</a>`;
+    if (mapRec && mapRec.route) mapBtns += `<a class="btn route-btn" href="#/map/${mapRec.id}">🧭 路線</a>`;
     for (const alt of rec.alt_maps || []) {
       const altRec = getMapByName(alt);
       if (altRec) mapBtns += `<a class="btn btn-ghost" href="#/map/${altRec.id}">${esc(altRec.name.split('：').pop())}</a>`;
